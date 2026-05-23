@@ -73,7 +73,7 @@ curl 'http://localhost:8080/reports?page=999&size=20' | jq '.page, .empty'
 
 | 파일 | 왜 |
 | --- | --- |
-| `build.gradle.kts` | `spring-boot-starter-web` 외 추가하는 의존성은 `kr.devslab:easy-paging-spring-boot-starter:0.5.0` 하나뿐 |
+| `build.gradle.kts` | `spring-boot-starter-web` 외 추가하는 의존성은 `kr.devslab:easy-paging-spring-boot-starter:4.0.0` 하나뿐 |
 | `report/ReportController.java` | 전체 페이지네이션 계약은 `@AutoPaginate(maxSize = 50)` 어노테이션 + `PageResponse<Report>` 반환 타입 |
 | `report/ReportMapper.java` + `resources/mapper/ReportMapper.xml` | 평범한 `SELECT` — `LIMIT`, `OFFSET`, `COUNT` 모두 없음. 런타임에 aspect가 주입 |
 | `resources/application.yml` | `easy-paging` 전역 cap + 기본값 |

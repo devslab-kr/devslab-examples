@@ -87,7 +87,7 @@ Signed cursors look the same in normal use, but become `<payload>.<hmac>` and an
 
 | File | Why |
 | --- | --- |
-| `build.gradle.kts` | the only dependency added beyond `spring-boot-starter-web` is `kr.devslab:easy-paging-spring-boot-starter:0.4.0` (same as the offset demo) |
+| `build.gradle.kts` | the only dependency added beyond `spring-boot-starter-web` is `kr.devslab:easy-paging-spring-boot-starter:3.0.0` (same as the offset demo) |
 | `location/LocationController.java` | the contract: `@KeysetPaginate(keys = {"time", "id"}, ...)` plus a `KeysetRequest` parameter resolved automatically by the starter |
 | `location/LocationService.java` | shows the **size + 1** trick (mapper fetches one extra row so `KeysetPage.build` can set `hasNext` correctly) and the `keyExtractor` lambda that becomes the next cursor |
 | `location/LocationMapper.java` + `resources/mapper/LocationMapper.xml` | the composite-key seek predicate — `time < ? OR (time = ? AND id < ?)` is what makes the walk stable when timestamps collide |

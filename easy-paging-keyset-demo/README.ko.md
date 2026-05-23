@@ -87,7 +87,7 @@ EASY_PAGING_CURSOR_SECRET='a-long-random-string-from-your-secrets-manager' ./gra
 
 | 파일 | 왜 |
 | --- | --- |
-| `build.gradle.kts` | `spring-boot-starter-web` 외 추가 의존성은 `kr.devslab:easy-paging-spring-boot-starter:0.4.0` (offset 데모와 동일) |
+| `build.gradle.kts` | `spring-boot-starter-web` 외 추가 의존성은 `kr.devslab:easy-paging-spring-boot-starter:3.0.0` (offset 데모와 동일) |
 | `location/LocationController.java` | 계약: `@KeysetPaginate(keys = {"time", "id"}, ...)` + 스타터가 자동 resolve하는 `KeysetRequest` 파라미터 |
 | `location/LocationService.java` | **size + 1** 트릭 (매퍼가 한 행 더 가져와서 `KeysetPage.build`가 `hasNext`를 정확히 설정) + 다음 커서가 되는 `keyExtractor` 람다 |
 | `location/LocationMapper.java` + `resources/mapper/LocationMapper.xml` | 복합 키 seek predicate — `time < ? OR (time = ? AND id < ?)`. 타임스탬프가 겹쳐도 walk를 안정적으로 만드는 핵심 |
