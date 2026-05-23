@@ -1,5 +1,7 @@
 # ssrf-guard-feign-demo
 
+**English** · [한국어](README.ko.md)
+
 Runnable example for [`ssrf-guard-feign`](https://github.com/devslab-kr/ssrf-guard) — SSRF protection for Spring Cloud OpenFeign clients.
 
 Two declarative `@FeignClient` interfaces share one `UrlPolicy`:

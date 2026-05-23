@@ -1,19 +1,19 @@
 # ssrf-guard-okhttp-demo
 
-**English** · [한국어](README.ko.md)
+[English](README.md) · **한국어**
 
-Runnable example for [`ssrf-guard-okhttp`](https://github.com/devslab-kr/ssrf-guard) — SSRF protection for OkHttp clients.
+[`ssrf-guard-okhttp`](https://github.com/devslab-kr/ssrf-guard) — OkHttp 클라이언트용 SSRF 방어 예제.
 
-**No Spring needed for the library itself.** The demo wraps Spring Boot around the wiring to give a curl-friendly endpoint, but the actual integration is three lines on `OkHttpClient.Builder`.
+**라이브러리 자체엔 Spring 필요 없음.** 데모가 Spring Boot로 감싸서 curl 친화적 엔드포인트를 제공하지만, 실제 통합은 `OkHttpClient.Builder` 3줄.
 
-## Run
+## 실행
 
 ```bash
 cd ssrf-guard-okhttp-demo
 ./gradlew bootRun
 ```
 
-## Try it
+## 시험해보기
 
 ```bash
 curl 'http://localhost:8080/fetch?url=https://httpbin.org/get' | jq
@@ -22,17 +22,17 @@ curl 'http://localhost:8080/fetch?url=http://2130706433/' | jq
 curl 'http://localhost:8080/fetch?url=https://evil.com/' | jq
 ```
 
-## What to read
+## 읽을 만한 파일
 
-| File | Why |
+| 파일 | 왜 |
 | --- | --- |
 | `build.gradle.kts` | `kr.devslab:ssrf-guard-okhttp:3.0.1` + `com.squareup.okhttp3:okhttp:4.12.0` |
-| `SsrfGuardOkHttpDemoApplication.java` | Three lines on the OkHttp builder — `.addInterceptor(...)`, `.dns(...)`, `.followRedirects(...)` |
-| `OkHttpDemoController.java` | Standard OkHttp `newCall().execute()` — the wrap is invisible at the call site |
+| `SsrfGuardOkHttpDemoApplication.java` | OkHttp 빌더에 3줄 — `.addInterceptor(...)`, `.dns(...)`, `.followRedirects(...)` |
+| `OkHttpDemoController.java` | 표준 OkHttp `newCall().execute()` — 호출부에서 wrap은 보이지 않음 |
 
-## Using outside Spring
+## Spring 없이 사용
 
-The wiring is just stock OkHttp builder calls — no Spring required:
+wiring은 평범한 OkHttp 빌더 호출입니다 — Spring 불필요:
 
 ```java
 HostPolicy hostPolicy = new HostPolicy(
@@ -54,9 +54,9 @@ OkHttpClient client = new OkHttpClient.Builder()
     .build();
 ```
 
-Useful for Android apps (OkHttp is the de facto Android HTTP client), Retrofit-backed services, or any non-Spring JVM consumer of OkHttp.
+Android 앱 (OkHttp가 사실상 표준 HTTP 클라이언트), Retrofit 기반 서비스, OkHttp 쓰는 모든 비-Spring JVM 환경에 유용.
 
-## Verify the build
+## 빌드 검증
 
 ```bash
 ./gradlew build
