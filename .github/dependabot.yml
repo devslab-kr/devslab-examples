@@ -63,10 +63,16 @@ updates:
       # — dependabot bumped to 0.5.0 across the SB3 demos and CI went
       # red on all 4). Hold easy-paging majors so the SB3 demos stay
       # on the 0.4.x line that matches their Spring Boot pin.
+      #
+      # Because the starter is pre-1.0, 0.4 → 0.5 reads to Dependabot
+      # as a *minor* bump but is actually the SB3 → SB4 release-line
+      # jump. The semver-major ignore alone isn't enough — PR #50
+      # (2026-05-23) snuck through it. Pin "< 0.5" explicitly via the
+      # versions: filter so 0.4.x patches still flow but 0.5+ doesn't.
       - dependency-name: "kr.devslab:easy-paging-spring-boot-starter"
-        update-types: ["version-update:semver-major"]
+        versions: [">= 0.5"]
       - dependency-name: "kr.devslab:easy-paging-spring-boot-starter-reactive"
-        update-types: ["version-update:semver-major"]
+        versions: [">= 0.5"]
       # Same shape applies to ssrf-guard's hypothetical SB4-only major
       # release, if/when it ships — guard against it in advance.
       - dependency-name: "kr.devslab:ssrf-guard"
