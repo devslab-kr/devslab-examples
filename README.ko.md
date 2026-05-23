@@ -16,10 +16,10 @@
 
 | 데모 | 보여주는 것 | Maven Central 좌표 |
 | --- | --- | --- |
-| [`easy-paging-sb4-demo`](easy-paging-sb4-demo/) | `@AutoPaginate` 어노테이션 기반 offset 페이지네이션 (Spring Boot 4 + MyBatis + H2) | [`kr.devslab:easy-paging-spring-boot-starter:0.5.0`](https://central.sonatype.com/artifact/kr.devslab/easy-paging-spring-boot-starter) |
-| [`easy-paging-sb4-keyset-demo`](easy-paging-sb4-keyset-demo/) | `@KeysetPaginate` 커서(keyset) 페이지네이션 — composite `(time, id)` 키, 쓰기 중에도 안정, `OFFSET`/`COUNT(*)` 없음 | [`kr.devslab:easy-paging-spring-boot-starter:0.5.0`](https://central.sonatype.com/artifact/kr.devslab/easy-paging-spring-boot-starter) |
-| [`easy-paging-sb4-postgres-demo`](easy-paging-sb4-postgres-demo/) | 동일 스타터를 **실제 PostgreSQL**과 — `bootRun`은 Docker Compose, 테스트는 Testcontainers + `@ServiceConnection`, 로컬 DB 설치 불필요 | [`kr.devslab:easy-paging-spring-boot-starter:0.5.0`](https://central.sonatype.com/artifact/kr.devslab/easy-paging-spring-boot-starter) |
-| [`easy-paging-sb4-reactive-demo`](easy-paging-sb4-reactive-demo/) | Reactive 스택 — **WebFlux + R2DBC**, `R2dbcOffsetPagingSupport` 사용. MVC 데모와 동일한 JSON 봉투를 `Mono<PageResponse<T>>`로 서빙 | [`kr.devslab:easy-paging-spring-boot-starter-reactive:0.5.0`](https://central.sonatype.com/artifact/kr.devslab/easy-paging-spring-boot-starter-reactive) |
+| [`easy-paging-sb4-demo`](easy-paging-sb4-demo/) | `@AutoPaginate` 어노테이션 기반 offset 페이지네이션 (Spring Boot 4 + MyBatis + H2) | [`kr.devslab:easy-paging-spring-boot-starter:4.0.0`](https://central.sonatype.com/artifact/kr.devslab/easy-paging-spring-boot-starter) |
+| [`easy-paging-sb4-keyset-demo`](easy-paging-sb4-keyset-demo/) | `@KeysetPaginate` 커서(keyset) 페이지네이션 — composite `(time, id)` 키, 쓰기 중에도 안정, `OFFSET`/`COUNT(*)` 없음 | [`kr.devslab:easy-paging-spring-boot-starter:4.0.0`](https://central.sonatype.com/artifact/kr.devslab/easy-paging-spring-boot-starter) |
+| [`easy-paging-sb4-postgres-demo`](easy-paging-sb4-postgres-demo/) | 동일 스타터를 **실제 PostgreSQL**과 — `bootRun`은 Docker Compose, 테스트는 Testcontainers + `@ServiceConnection`, 로컬 DB 설치 불필요 | [`kr.devslab:easy-paging-spring-boot-starter:4.0.0`](https://central.sonatype.com/artifact/kr.devslab/easy-paging-spring-boot-starter) |
+| [`easy-paging-sb4-reactive-demo`](easy-paging-sb4-reactive-demo/) | Reactive 스택 — **WebFlux + R2DBC**, `R2dbcOffsetPagingSupport` 사용. MVC 데모와 동일한 JSON 봉투를 `Mono<PageResponse<T>>`로 서빙 | [`kr.devslab:easy-paging-spring-boot-starter-reactive:4.0.0`](https://central.sonatype.com/artifact/kr.devslab/easy-paging-spring-boot-starter-reactive) |
 
 ### easy-paging — Spring Boot 3 maintenance (`0.4.x` 라인)
 
@@ -27,10 +27,10 @@ Spring Boot 3.3–3.5 사용 중인 앱용. 스타터의 [`0.4.x` 브랜치](htt
 
 | 데모 | 보여주는 것 | Maven Central 좌표 |
 | --- | --- | --- |
-| [`easy-paging-demo`](easy-paging-demo/) | `@AutoPaginate` 어노테이션 기반 offset 페이지네이션 (Spring Boot 3 + MyBatis + H2) | [`kr.devslab:easy-paging-spring-boot-starter:0.4.0`](https://central.sonatype.com/artifact/kr.devslab/easy-paging-spring-boot-starter) |
-| [`easy-paging-keyset-demo`](easy-paging-keyset-demo/) | `@KeysetPaginate` 커서 페이지네이션 | [`kr.devslab:easy-paging-spring-boot-starter:0.4.0`](https://central.sonatype.com/artifact/kr.devslab/easy-paging-spring-boot-starter) |
-| [`easy-paging-postgres-demo`](easy-paging-postgres-demo/) | 실제 PostgreSQL 사용 | [`kr.devslab:easy-paging-spring-boot-starter:0.4.0`](https://central.sonatype.com/artifact/kr.devslab/easy-paging-spring-boot-starter) |
-| [`easy-paging-reactive-demo`](easy-paging-reactive-demo/) | Reactive 스택 — WebFlux + R2DBC | [`kr.devslab:easy-paging-spring-boot-starter-reactive:0.4.0`](https://central.sonatype.com/artifact/kr.devslab/easy-paging-spring-boot-starter-reactive) |
+| [`easy-paging-demo`](easy-paging-demo/) | `@AutoPaginate` 어노테이션 기반 offset 페이지네이션 (Spring Boot 3 + MyBatis + H2) | [`kr.devslab:easy-paging-spring-boot-starter:3.0.0`](https://central.sonatype.com/artifact/kr.devslab/easy-paging-spring-boot-starter) |
+| [`easy-paging-keyset-demo`](easy-paging-keyset-demo/) | `@KeysetPaginate` 커서 페이지네이션 | [`kr.devslab:easy-paging-spring-boot-starter:3.0.0`](https://central.sonatype.com/artifact/kr.devslab/easy-paging-spring-boot-starter) |
+| [`easy-paging-postgres-demo`](easy-paging-postgres-demo/) | 실제 PostgreSQL 사용 | [`kr.devslab:easy-paging-spring-boot-starter:3.0.0`](https://central.sonatype.com/artifact/kr.devslab/easy-paging-spring-boot-starter) |
+| [`easy-paging-reactive-demo`](easy-paging-reactive-demo/) | Reactive 스택 — WebFlux + R2DBC | [`kr.devslab:easy-paging-spring-boot-starter-reactive:3.0.0`](https://central.sonatype.com/artifact/kr.devslab/easy-paging-spring-boot-starter-reactive) |
 
 ### ssrf-guard
 

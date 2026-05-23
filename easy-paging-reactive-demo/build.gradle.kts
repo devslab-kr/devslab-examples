@@ -30,7 +30,7 @@ dependencies {
     // the core starter (kr.devslab:easy-paging-spring-boot-starter) transitively
     // via `api(project(":core"))` so PageResponse/Pageable/etc. are available
     // without an explicit dependency on it.
-    implementation("kr.devslab:easy-paging-spring-boot-starter-reactive:0.4.0")
+    implementation("kr.devslab:easy-paging-spring-boot-starter-reactive:3.0.0")
 
     // Real PostgreSQL R2DBC driver.
     runtimeOnly("org.postgresql:r2dbc-postgresql")

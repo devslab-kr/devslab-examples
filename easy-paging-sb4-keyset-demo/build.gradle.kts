@@ -21,7 +21,7 @@ dependencies {
     implementation("org.springframework.boot:spring-boot-starter-web")
 
     // The library this demo showcases. Bumped by Dependabot on new releases.
-    implementation("kr.devslab:easy-paging-spring-boot-starter:0.5.0")
+    implementation("kr.devslab:easy-paging-spring-boot-starter:4.0.0")
 
     // H2 in-memory database — keeps the demo self-contained (no external DB).
     // Keyset pagination doesn't need a "real" DB to demonstrate; the SQL pattern

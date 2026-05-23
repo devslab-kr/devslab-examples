@@ -73,7 +73,7 @@ The interesting parts, in order:
 
 | File | Why |
 | --- | --- |
-| `build.gradle.kts` | the only dependency the demo adds beyond `spring-boot-starter-web` is `kr.devslab:easy-paging-spring-boot-starter:0.5.0` |
+| `build.gradle.kts` | the only dependency the demo adds beyond `spring-boot-starter-web` is `kr.devslab:easy-paging-spring-boot-starter:4.0.0` |
 | `report/ReportController.java` | the entire pagination contract is the `@AutoPaginate(maxSize = 50)` annotation and the `PageResponse<Report>` return type |
 | `report/ReportMapper.java` + `resources/mapper/ReportMapper.xml` | plain `SELECT` — no `LIMIT`, no `OFFSET`, no `COUNT`. The aspect injects all of that at runtime |
 | `resources/application.yml` | `easy-paging` global caps and defaults |

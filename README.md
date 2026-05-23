@@ -16,10 +16,10 @@ Latest active line. Use these if your app is on Spring Boot 4+.
 
 | Demo | Showcases | Maven Central coordinates |
 | --- | --- | --- |
-| [`easy-paging-sb4-demo`](easy-paging-sb4-demo/) | Annotation-driven offset pagination with `@AutoPaginate` (Spring Boot 4 + MyBatis + H2) | [`kr.devslab:easy-paging-spring-boot-starter:0.5.0`](https://central.sonatype.com/artifact/kr.devslab/easy-paging-spring-boot-starter) |
-| [`easy-paging-sb4-keyset-demo`](easy-paging-sb4-keyset-demo/) | Cursor (keyset) pagination with `@KeysetPaginate` — composite `(time, id)` key, stable under writes, no `OFFSET`/`COUNT(*)` | [`kr.devslab:easy-paging-spring-boot-starter:0.5.0`](https://central.sonatype.com/artifact/kr.devslab/easy-paging-spring-boot-starter) |
-| [`easy-paging-sb4-postgres-demo`](easy-paging-sb4-postgres-demo/) | Same starter against **real PostgreSQL** — Docker Compose for `bootRun`, Testcontainers + `@ServiceConnection` for tests, no local DB install | [`kr.devslab:easy-paging-spring-boot-starter:0.5.0`](https://central.sonatype.com/artifact/kr.devslab/easy-paging-spring-boot-starter) |
-| [`easy-paging-sb4-reactive-demo`](easy-paging-sb4-reactive-demo/) | Reactive stack — **WebFlux + R2DBC** via `R2dbcOffsetPagingSupport`. Same JSON envelope as the MVC demos, served as `Mono<PageResponse<T>>` | [`kr.devslab:easy-paging-spring-boot-starter-reactive:0.5.0`](https://central.sonatype.com/artifact/kr.devslab/easy-paging-spring-boot-starter-reactive) |
+| [`easy-paging-sb4-demo`](easy-paging-sb4-demo/) | Annotation-driven offset pagination with `@AutoPaginate` (Spring Boot 4 + MyBatis + H2) | [`kr.devslab:easy-paging-spring-boot-starter:4.0.0`](https://central.sonatype.com/artifact/kr.devslab/easy-paging-spring-boot-starter) |
+| [`easy-paging-sb4-keyset-demo`](easy-paging-sb4-keyset-demo/) | Cursor (keyset) pagination with `@KeysetPaginate` — composite `(time, id)` key, stable under writes, no `OFFSET`/`COUNT(*)` | [`kr.devslab:easy-paging-spring-boot-starter:4.0.0`](https://central.sonatype.com/artifact/kr.devslab/easy-paging-spring-boot-starter) |
+| [`easy-paging-sb4-postgres-demo`](easy-paging-sb4-postgres-demo/) | Same starter against **real PostgreSQL** — Docker Compose for `bootRun`, Testcontainers + `@ServiceConnection` for tests, no local DB install | [`kr.devslab:easy-paging-spring-boot-starter:4.0.0`](https://central.sonatype.com/artifact/kr.devslab/easy-paging-spring-boot-starter) |
+| [`easy-paging-sb4-reactive-demo`](easy-paging-sb4-reactive-demo/) | Reactive stack — **WebFlux + R2DBC** via `R2dbcOffsetPagingSupport`. Same JSON envelope as the MVC demos, served as `Mono<PageResponse<T>>` | [`kr.devslab:easy-paging-spring-boot-starter-reactive:4.0.0`](https://central.sonatype.com/artifact/kr.devslab/easy-paging-spring-boot-starter-reactive) |
 
 ### easy-paging — Spring Boot 3 maintenance (`0.4.x` line)
 
@@ -27,10 +27,10 @@ For apps still on Spring Boot 3.3–3.5. The starter's [`0.4.x` branch](https://
 
 | Demo | Showcases | Maven Central coordinates |
 | --- | --- | --- |
-| [`easy-paging-demo`](easy-paging-demo/) | Annotation-driven offset pagination with `@AutoPaginate` (Spring Boot 3 + MyBatis + H2) | [`kr.devslab:easy-paging-spring-boot-starter:0.4.0`](https://central.sonatype.com/artifact/kr.devslab/easy-paging-spring-boot-starter) |
-| [`easy-paging-keyset-demo`](easy-paging-keyset-demo/) | Cursor (keyset) pagination with `@KeysetPaginate` | [`kr.devslab:easy-paging-spring-boot-starter:0.4.0`](https://central.sonatype.com/artifact/kr.devslab/easy-paging-spring-boot-starter) |
-| [`easy-paging-postgres-demo`](easy-paging-postgres-demo/) | Same starter against real PostgreSQL | [`kr.devslab:easy-paging-spring-boot-starter:0.4.0`](https://central.sonatype.com/artifact/kr.devslab/easy-paging-spring-boot-starter) |
-| [`easy-paging-reactive-demo`](easy-paging-reactive-demo/) | Reactive stack — WebFlux + R2DBC | [`kr.devslab:easy-paging-spring-boot-starter-reactive:0.4.0`](https://central.sonatype.com/artifact/kr.devslab/easy-paging-spring-boot-starter-reactive) |
+| [`easy-paging-demo`](easy-paging-demo/) | Annotation-driven offset pagination with `@AutoPaginate` (Spring Boot 3 + MyBatis + H2) | [`kr.devslab:easy-paging-spring-boot-starter:3.0.0`](https://central.sonatype.com/artifact/kr.devslab/easy-paging-spring-boot-starter) |
+| [`easy-paging-keyset-demo`](easy-paging-keyset-demo/) | Cursor (keyset) pagination with `@KeysetPaginate` | [`kr.devslab:easy-paging-spring-boot-starter:3.0.0`](https://central.sonatype.com/artifact/kr.devslab/easy-paging-spring-boot-starter) |
+| [`easy-paging-postgres-demo`](easy-paging-postgres-demo/) | Same starter against real PostgreSQL | [`kr.devslab:easy-paging-spring-boot-starter:3.0.0`](https://central.sonatype.com/artifact/kr.devslab/easy-paging-spring-boot-starter) |
+| [`easy-paging-reactive-demo`](easy-paging-reactive-demo/) | Reactive stack — WebFlux + R2DBC | [`kr.devslab:easy-paging-spring-boot-starter-reactive:3.0.0`](https://central.sonatype.com/artifact/kr.devslab/easy-paging-spring-boot-starter-reactive) |
 
 ### ssrf-guard
 
