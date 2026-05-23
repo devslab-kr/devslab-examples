@@ -21,7 +21,7 @@ dependencies {
     implementation("org.springframework.boot:spring-boot-starter-web")
 
     // The library this demo showcases. Bumped by Dependabot on new releases.
-    implementation("kr.devslab:easy-paging-spring-boot-starter:0.4.0")
+    implementation("kr.devslab:easy-paging-spring-boot-starter:0.5.0")
 
     // Real PostgreSQL JDBC driver — the whole point of this demo over the H2 one
     // is "does the starter actually work against a production DB?". (Spoiler: yes,
