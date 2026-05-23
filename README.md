@@ -8,7 +8,7 @@ Each subdirectory is an **independent** Spring Boot application with its own Gra
 
 | Demo | Showcases | Maven Central coordinates |
 | --- | --- | --- |
-| _(none yet — first demo coming in a follow-up PR)_ | — | — |
+| [`easy-paging-demo`](easy-paging-demo/) | Annotation-driven offset pagination with `@AutoPaginate` (Spring Boot + MyBatis + H2) | [`kr.devslab:easy-paging-spring-boot-starter:0.4.0`](https://central.sonatype.com/artifact/kr.devslab/easy-paging-spring-boot-starter) |
 
 ## Conventions
 
