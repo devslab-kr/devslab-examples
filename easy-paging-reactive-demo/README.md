@@ -1,5 +1,7 @@
 # easy-paging-reactive-demo
 
+**English** · [한국어](README.ko.md)
+
 Reactive (WebFlux + R2DBC) runnable example for [`easy-paging-spring-boot-starter`](https://github.com/devslab-kr/easy-paging-spring-boot-starter), using the companion artifact [`easy-paging-spring-boot-starter-reactive`](https://central.sonatype.com/artifact/kr.devslab/easy-paging-spring-boot-starter-reactive).
 
 The MVC + MyBatis demos (`easy-paging-demo`, `easy-paging-postgres-demo`) wire pagination through an AOP aspect; the reactive stack doesn't have a sensible per-thread context to hook into, so the reactive starter takes a different shape: a helper (`R2dbcOffsetPagingSupport`) that the service calls explicitly. The **wire contract is identical** — same `PageResponse<T>` JSON envelope, same `?page=`/`?size=`/`?sort=` semantics — so clients can't tell which stack is behind a given endpoint.

@@ -1,5 +1,7 @@
 # easy-paging-keyset-demo
 
+**English** · [한국어](README.ko.md)
+
 Cursor (keyset) pagination example for [`easy-paging-spring-boot-starter`](https://github.com/devslab-kr/easy-paging-spring-boot-starter) — the strategy you want for unbounded time-series streams (logs, audit events, location pings) where `OFFSET` would slow down with depth and `COUNT(*)` is wasted work.
 
 Companion to [`easy-paging-demo`](../easy-paging-demo/) — which covers traditional offset pagination — but with a different annotation, return type, and `WHERE`-clause pattern. Same H2 in-memory database, no external services.

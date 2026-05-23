@@ -1,5 +1,7 @@
 # easy-paging-postgres-demo
 
+**English** · [한국어](README.ko.md)
+
 Production-flavoured runnable example for [`easy-paging-spring-boot-starter`](https://github.com/devslab-kr/easy-paging-spring-boot-starter) against a **real PostgreSQL** instead of H2.
 
 The starter works on whatever JDBC database PageHelper supports (Postgres, MySQL, MariaDB, Oracle, …) — this demo proves it end-to-end on the database most teams actually ship with, and shows the Docker Compose + Testcontainers pattern this repo will use for every "external DB" demo from here on.
