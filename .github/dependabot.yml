@@ -43,7 +43,7 @@ updates:
       - "dependencies"
       - "sb3"
     commit-message:
-      prefix: "build(deps)"
+      prefix: "build"
       include: "scope"
     ignore:
       - dependency-name: "org.springframework.boot:*"
@@ -121,7 +121,7 @@ updates:
       - "dependencies"
       - "sb4"
     commit-message:
-      prefix: "build(deps)"
+      prefix: "build"
       include: "scope"
     # Still hold the Gradle wrapper major — has nothing to do with SB,
     # and a wrapper major needs hand verification regardless of line.
@@ -162,5 +162,5 @@ updates:
       - "dependencies"
       - "github-actions"
     commit-message:
-      prefix: "build(ci)"
+      prefix: "ci"
       include: "scope"
