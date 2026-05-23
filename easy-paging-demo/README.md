@@ -1,5 +1,7 @@
 # easy-paging-demo
 
+**English** · [한국어](README.ko.md)
+
 Runnable example for [`easy-paging-spring-boot-starter`](https://github.com/devslab-kr/easy-paging-spring-boot-starter) — annotation-driven pagination for Spring Boot + MyBatis.
 
 This demo wires the starter into a minimal Spring Boot app with an in-memory H2 database, 137 seeded report rows, and a single `@AutoPaginate`-annotated controller. No external services, no database setup — clone, run, curl.
