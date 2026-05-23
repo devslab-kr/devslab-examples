@@ -18,8 +18,14 @@ jobs:
     steps:
       - uses: actions/checkout@v4
         with:
-          # PRs need full history to diff against the base branch.
-          fetch-depth: ${{ github.event_name == 'pull_request' && 0 || 1 }}
+          # Always full history. We previously tried
+          #   fetch-depth: ${{ github.event_name == 'pull_request' && 0 || 1 }}
+          # to avoid the cost on main pushes, but GitHub Actions evaluates that
+          # expression to `1` even on PRs (the `&& 0 || 1` ternary trap — 0 is
+          # falsy in Actions expressions, so `0 || 1` short-circuits to 1). That
+          # left PR checkouts shallow, `git diff $base HEAD` failed with
+          # "fatal: bad object", and the matrix silently went empty.
+          fetch-depth: 0
 
       - id: detect
         name: Determine which demos to build
@@ -33,7 +39,15 @@ jobs:
           if [ "${{ github.event_name }}" = "pull_request" ]; then
             # Build only demos whose files changed in this PR.
             base="${{ github.event.pull_request.base.sha }}"
-            mapfile -t changed_files < <(git diff --name-only "$base" HEAD)
+            # Run git diff in two stages so we fail loudly on errors. The previous
+            # version used `mapfile < <(git diff ...)`, but process substitution
+            # hides the subshell's exit status from `set -e`, so a bad-object
+            # error produced an empty array and a silently-skipped build.
+            if ! changed_output="$(git diff --name-only "$base" HEAD)"; then
+              echo "::error::git diff against base $base failed (likely a shallow checkout — confirm fetch-depth: 0 on the checkout step)"
+              exit 1
+            fi
+            mapfile -t changed_files <<< "$changed_output"
             demos_to_build=()
             for d in "${all_demos[@]}"; do
               for f in "${changed_files[@]}"; do
