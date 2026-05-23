@@ -35,6 +35,39 @@ updates:
     commit-message:
       prefix: "build(deps)"
       include: "scope"
+    # ----------------------------------------------------------------
+    # Hold majors at the starter's tested baseline.
+    #
+    # The demos exist to showcase the starters at the Spring Boot
+    # version each starter is *certified against* (per its README).
+    # Letting Dependabot land a Spring Boot major (3.x → 4.x) ahead of
+    # the starter's own SB4 release would silently advertise
+    # incompatible combinations to anyone copying a demo.
+    #
+    # When a starter publishes a SB4-compatible release line (e.g.
+    # easy-paging 0.5.x), this ignore block gets relaxed for that
+    # specific starter family, and the demos are upgraded together in
+    # a single PR — not piecemeal by a robot.
+    # ----------------------------------------------------------------
+    ignore:
+      # Spring Boot + dependency-management major bumps
+      - dependency-name: "org.springframework.boot:*"
+        update-types: ["version-update:semver-major"]
+      - dependency-name: "io.spring.dependency-management"
+        update-types: ["version-update:semver-major"]
+      # Spring Framework / Spring Cloud — pulled in transitively by SB,
+      # but their majors land outside the SB BOM cadence sometimes
+      - dependency-name: "org.springframework:*"
+        update-types: ["version-update:semver-major"]
+      - dependency-name: "org.springframework.cloud:*"
+        update-types: ["version-update:semver-major"]
+      # Gradle wrapper — each new major (8 → 9, etc.) needs hand
+      # verification (deprecations may have become errors). Dependabot
+      # bumps the *wrapper version*, which doesn't run any code; the
+      # CI catches breakage on next build, but a major bump deserves
+      # a dedicated PR with eyes on it, not 9 silent ones.
+      - dependency-name: "gradle"
+        update-types: ["version-update:semver-major"]
     # Group related bumps into single PRs to keep the queue manageable.
     groups:
       # devslab-kr starters this repo exists to showcase — every new release
