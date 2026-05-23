@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+    "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="kr.devslab.examples.easypagingkeyset.location.LocationMapper">
+
+    <!--
+        Composite-key seek predicate:
+          time < cursor_time
+          OR (time = cursor_time AND id < cursor_id)
+
+        The OR-tied-on-id clause is what makes pagination stable when two rows
+        share the same timestamp: without the tiebreaker, the client could either
+        miss rows or see duplicates on page boundaries.
+
+        XML escaping reminder: < must be written as &lt; inside MyBatis XML —
+        a raw < makes the file fail to parse.
+    -->
+    <select id="findAfter"
+            resultType="kr.devslab.examples.easypagingkeyset.location.Location">
+        SELECT id, worker_id, time, lat, lng
+        FROM locations
+        WHERE worker_id = #{workerId}
+          AND (
+              #{time} IS NULL
+              OR time &lt; #{time}
+              OR (time = #{time} AND id &lt; #{id})
+          )
+        ORDER BY time DESC, id DESC
+        LIMIT #{limit}
+    </select>
+
+</mapper>

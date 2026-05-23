@@ -10,12 +10,32 @@ Each subdirectory is an **independent** Spring Boot application with its own Gra
 
 ## Examples
 
+### easy-paging — Spring Boot 4 (`0.5.x` line)
+
+Latest active line. Use these if your app is on Spring Boot 4+.
+
 | Demo | Showcases | Maven Central coordinates |
 | --- | --- | --- |
-| [`easy-paging-demo`](easy-paging-demo/) | Annotation-driven offset pagination with `@AutoPaginate` (Spring Boot + MyBatis + H2) | [`kr.devslab:easy-paging-spring-boot-starter:0.4.0`](https://central.sonatype.com/artifact/kr.devslab/easy-paging-spring-boot-starter) |
-| [`easy-paging-keyset-demo`](easy-paging-keyset-demo/) | Cursor (keyset) pagination with `@KeysetPaginate` — composite `(time, id)` key, stable under writes, no `OFFSET`/`COUNT(*)` | [`kr.devslab:easy-paging-spring-boot-starter:0.4.0`](https://central.sonatype.com/artifact/kr.devslab/easy-paging-spring-boot-starter) |
-| [`easy-paging-postgres-demo`](easy-paging-postgres-demo/) | Same starter against **real PostgreSQL** — Docker Compose for `bootRun`, Testcontainers + `@ServiceConnection` for tests, no local DB install | [`kr.devslab:easy-paging-spring-boot-starter:0.4.0`](https://central.sonatype.com/artifact/kr.devslab/easy-paging-spring-boot-starter) |
-| [`easy-paging-reactive-demo`](easy-paging-reactive-demo/) | Reactive stack — **WebFlux + R2DBC** via `R2dbcOffsetPagingSupport`. Same JSON envelope as the MVC demos, served as `Mono<PageResponse<T>>` | [`kr.devslab:easy-paging-spring-boot-starter-reactive:0.4.0`](https://central.sonatype.com/artifact/kr.devslab/easy-paging-spring-boot-starter-reactive) |
+| [`easy-paging-sb4-demo`](easy-paging-sb4-demo/) | Annotation-driven offset pagination with `@AutoPaginate` (Spring Boot 4 + MyBatis + H2) | [`kr.devslab:easy-paging-spring-boot-starter:0.5.0`](https://central.sonatype.com/artifact/kr.devslab/easy-paging-spring-boot-starter) |
+| [`easy-paging-sb4-keyset-demo`](easy-paging-sb4-keyset-demo/) | Cursor (keyset) pagination with `@KeysetPaginate` — composite `(time, id)` key, stable under writes, no `OFFSET`/`COUNT(*)` | [`kr.devslab:easy-paging-spring-boot-starter:0.5.0`](https://central.sonatype.com/artifact/kr.devslab/easy-paging-spring-boot-starter) |
+| [`easy-paging-sb4-postgres-demo`](easy-paging-sb4-postgres-demo/) | Same starter against **real PostgreSQL** — Docker Compose for `bootRun`, Testcontainers + `@ServiceConnection` for tests, no local DB install | [`kr.devslab:easy-paging-spring-boot-starter:0.5.0`](https://central.sonatype.com/artifact/kr.devslab/easy-paging-spring-boot-starter) |
+| [`easy-paging-sb4-reactive-demo`](easy-paging-sb4-reactive-demo/) | Reactive stack — **WebFlux + R2DBC** via `R2dbcOffsetPagingSupport`. Same JSON envelope as the MVC demos, served as `Mono<PageResponse<T>>` | [`kr.devslab:easy-paging-spring-boot-starter-reactive:0.5.0`](https://central.sonatype.com/artifact/kr.devslab/easy-paging-spring-boot-starter-reactive) |
+
+### easy-paging — Spring Boot 3 maintenance (`0.4.x` line)
+
+For apps still on Spring Boot 3.3–3.5. The starter's [`0.4.x` branch](https://github.com/devslab-kr/easy-paging-spring-boot-starter/tree/0.4.x) continues to receive SB3 security patches; these demos pin against that line.
+
+| Demo | Showcases | Maven Central coordinates |
+| --- | --- | --- |
+| [`easy-paging-demo`](easy-paging-demo/) | Annotation-driven offset pagination with `@AutoPaginate` (Spring Boot 3 + MyBatis + H2) | [`kr.devslab:easy-paging-spring-boot-starter:0.4.0`](https://central.sonatype.com/artifact/kr.devslab/easy-paging-spring-boot-starter) |
+| [`easy-paging-keyset-demo`](easy-paging-keyset-demo/) | Cursor (keyset) pagination with `@KeysetPaginate` | [`kr.devslab:easy-paging-spring-boot-starter:0.4.0`](https://central.sonatype.com/artifact/kr.devslab/easy-paging-spring-boot-starter) |
+| [`easy-paging-postgres-demo`](easy-paging-postgres-demo/) | Same starter against real PostgreSQL | [`kr.devslab:easy-paging-spring-boot-starter:0.4.0`](https://central.sonatype.com/artifact/kr.devslab/easy-paging-spring-boot-starter) |
+| [`easy-paging-reactive-demo`](easy-paging-reactive-demo/) | Reactive stack — WebFlux + R2DBC | [`kr.devslab:easy-paging-spring-boot-starter-reactive:0.4.0`](https://central.sonatype.com/artifact/kr.devslab/easy-paging-spring-boot-starter-reactive) |
+
+### ssrf-guard
+
+| Demo | Showcases | Maven Central coordinates |
+| --- | --- | --- |
 | [`ssrf-guard-demo`](ssrf-guard-demo/) | SSRF (Server-Side Request Forgery) protection across three Spring HTTP clients (RestClient, RestTemplate, WebClient) — same `UrlPolicy` for all. 15-pattern attack matrix endpoint, Micrometer metrics. | [`kr.devslab:ssrf-guard:3.0.1`](https://central.sonatype.com/artifact/kr.devslab/ssrf-guard) |
 | [`ssrf-guard-springai-demo`](ssrf-guard-springai-demo/) | ⭐ **LLM agent SSRF defense.** Wraps every Spring AI `ToolCallback` so URL-shaped tool arguments are validated before the LLM-driven `fetch_url` runs. Fake-LLM driver makes the demo runnable offline (no API key). | [`kr.devslab:ssrf-guard-springai:3.0.1`](https://central.sonatype.com/artifact/kr.devslab/ssrf-guard-springai) |
 | [`ssrf-guard-feign-demo`](ssrf-guard-feign-demo/) | Spring Cloud OpenFeign `RequestInterceptor` — same `UrlPolicy` applied to `@FeignClient` calls. Two `@FeignClient` interfaces (one whitelisted, one not) to show the block path. | [`kr.devslab:ssrf-guard-feign:3.0.1`](https://central.sonatype.com/artifact/kr.devslab/ssrf-guard-feign) |

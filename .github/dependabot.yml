@@ -3,15 +3,24 @@
 #
 # Each demo is an independent Gradle project (its own settings.gradle.kts and
 # wrapper), so Dependabot needs to be told about each directory explicitly.
-# We use `directories:` (plural) so one ecosystem entry covers them all
-# with a shared group/schedule/label policy — much less duplication than
-# nine near-identical entries.
+# Demos are split into two gradle entries based on which starter release line
+# they showcase — they get different Spring-major policies.
 
 version: 2
 
 updates:
   # ---------------------------------------------------------------------
-  # Gradle: every demo + the starter ecosystems they depend on.
+  # Spring Boot 3 demos — pinned to the SB3 starter line.
+  #
+  # easy-paging 0.4.x and ssrf-guard 3.x are certified against
+  # Spring Boot 3.3-3.5. Letting Dependabot land a Spring Boot major
+  # (3.x → 4.x) here would silently advertise an incompatible
+  # combination to anyone copying one of these demos.
+  #
+  # When a given starter publishes its own SB4-compatible line (as
+  # easy-paging did with 0.5.x), the SB4 demos live under the second
+  # gradle entry below; the SB3 demos here keep getting patches on
+  # the 3.5.x line.
   # ---------------------------------------------------------------------
   - package-ecosystem: "gradle"
     directories:
@@ -32,65 +41,90 @@ updates:
     open-pull-requests-limit: 10
     labels:
       - "dependencies"
+      - "sb3"
     commit-message:
       prefix: "build(deps)"
       include: "scope"
-    # ----------------------------------------------------------------
-    # Hold majors at the starter's tested baseline.
-    #
-    # The demos exist to showcase the starters at the Spring Boot
-    # version each starter is *certified against* (per its README).
-    # Letting Dependabot land a Spring Boot major (3.x → 4.x) ahead of
-    # the starter's own SB4 release would silently advertise
-    # incompatible combinations to anyone copying a demo.
-    #
-    # When a starter publishes a SB4-compatible release line (e.g.
-    # easy-paging 0.5.x), this ignore block gets relaxed for that
-    # specific starter family, and the demos are upgraded together in
-    # a single PR — not piecemeal by a robot.
-    # ----------------------------------------------------------------
     ignore:
-      # Spring Boot + dependency-management major bumps
       - dependency-name: "org.springframework.boot:*"
         update-types: ["version-update:semver-major"]
       - dependency-name: "io.spring.dependency-management"
         update-types: ["version-update:semver-major"]
-      # Spring Framework / Spring Cloud — pulled in transitively by SB,
-      # but their majors land outside the SB BOM cadence sometimes
       - dependency-name: "org.springframework:*"
         update-types: ["version-update:semver-major"]
       - dependency-name: "org.springframework.cloud:*"
         update-types: ["version-update:semver-major"]
-      # Gradle wrapper — each new major (8 → 9, etc.) needs hand
-      # verification (deprecations may have become errors). Dependabot
-      # bumps the *wrapper version*, which doesn't run any code; the
-      # CI catches breakage on next build, but a major bump deserves
-      # a dedicated PR with eyes on it, not 9 silent ones.
       - dependency-name: "gradle"
         update-types: ["version-update:semver-major"]
-    # Group related bumps into single PRs to keep the queue manageable.
     groups:
-      # devslab-kr starters this repo exists to showcase — every new release
-      # should produce one tight PR per demo, not N PRs across submodules.
       easy-paging:
         patterns:
           - "kr.devslab:easy-paging*"
       ssrf-guard:
         patterns:
           - "kr.devslab:ssrf-guard*"
-      # Spring Boot moves as a unit; bump everything together or nothing.
       spring-boot:
         patterns:
           - "org.springframework.boot:*"
           - "io.spring.dependency-management"
-      # Test deps — none of these affect runtime behaviour, batch them.
       test-tooling:
         patterns:
           - "org.testcontainers:*"
           - "org.springframework.boot:spring-boot-testcontainers"
           - "io.projectreactor:reactor-test"
           - "org.junit*:*"
-      # Database drivers — usually bumped together when Spring Boot moves.
+      database-drivers:
+        patterns:
+          - "org.postgresql:*"
+          - "com.h2database:h2"
+          - "io.r2dbc:*"
+
+  # ---------------------------------------------------------------------
+  # Spring Boot 4 demos — easy-paging 0.5.x active line.
+  #
+  # These showcase the SB4-certified starter line, so Spring majors
+  # are NOT held — Dependabot is free to roll the BOM through patch /
+  # minor / major within the SB4 family. A future SB5 jump would
+  # come back through here as a major bump on a dedicated PR (the
+  # group keeps everything atomic).
+  # ---------------------------------------------------------------------
+  - package-ecosystem: "gradle"
+    directories:
+      - "/easy-paging-sb4-demo"
+      - "/easy-paging-sb4-keyset-demo"
+      - "/easy-paging-sb4-postgres-demo"
+      - "/easy-paging-sb4-reactive-demo"
+    schedule:
+      interval: "weekly"
+      day: "monday"
+      time: "09:00"
+      timezone: "Asia/Seoul"
+    open-pull-requests-limit: 10
+    labels:
+      - "dependencies"
+      - "sb4"
+    commit-message:
+      prefix: "build(deps)"
+      include: "scope"
+    # Still hold the Gradle wrapper major — has nothing to do with SB,
+    # and a wrapper major needs hand verification regardless of line.
+    ignore:
+      - dependency-name: "gradle"
+        update-types: ["version-update:semver-major"]
+    groups:
+      easy-paging:
+        patterns:
+          - "kr.devslab:easy-paging*"
+      spring-boot:
+        patterns:
+          - "org.springframework.boot:*"
+          - "io.spring.dependency-management"
+      test-tooling:
+        patterns:
+          - "org.testcontainers:*"
+          - "org.springframework.boot:spring-boot-testcontainers"
+          - "io.projectreactor:reactor-test"
+          - "org.junit*:*"
       database-drivers:
         patterns:
           - "org.postgresql:*"

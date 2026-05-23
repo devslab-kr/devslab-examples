@@ -1,0 +1,38 @@
+# Reactive (R2DBC + WebFlux) demo config.
+#
+# Local "run it yourself" flow:
+#   docker compose up -d db
+#   ./gradlew bootRun
+#
+# Note the port is 5433, not 5432, so this demo can run side by side with
+# easy-paging-postgres-demo. The integration tests don't read this datasource —
+# Testcontainers + @ServiceConnection wires R2dbcConnectionDetails to the
+# ephemeral container at test time.
+
+spring:
+  application:
+    name: easy-paging-reactive-demo
+
+  r2dbc:
+    url: r2dbc:postgresql://localhost:5433/easypaging
+    username: easypaging
+    password: easypaging
+
+  sql:
+    init:
+      # Spring Boot 3.x auto-runs classpath:schema.sql and classpath:data.sql
+      # for R2DBC connection factories, same as for JDBC DataSources. The
+      # schema does DROP+CREATE so every restart boots into a known state.
+      # Production should use Flyway with the R2DBC migration runner instead.
+      mode: always
+      continue-on-error: false
+
+easy-paging:
+  enabled: true
+  default-page-size: 20
+  max-page-size: 200
+
+logging:
+  level:
+    root: WARN
+    kr.devslab.examples: INFO

@@ -1,0 +1,43 @@
+# Self-contained PostgreSQL demo config.
+#
+# Local "run it yourself" flow:
+#   docker compose up -d db
+#   ./gradlew bootRun
+#
+# The defaults below line up with docker-compose.yml in this directory. The
+# integration tests don't read this file's datasource — Testcontainers +
+# @ServiceConnection rewires the datasource to the ephemeral container at
+# test time.
+
+spring:
+  application:
+    name: easy-paging-postgres-demo
+
+  datasource:
+    url: jdbc:postgresql://localhost:5432/easypaging
+    username: easypaging
+    password: easypaging
+    driver-class-name: org.postgresql.Driver
+
+  sql:
+    init:
+      # Re-applied on every startup. schema.sql does DROP+CREATE so we always
+      # boot into a known state. For a real app you'd want Flyway/Liquibase
+      # instead; the README has a note pointing at that.
+      mode: always
+      continue-on-error: false
+
+mybatis:
+  mapper-locations: classpath:mapper/**/*.xml
+  configuration:
+    map-underscore-to-camel-case: true
+
+easy-paging:
+  enabled: true
+  default-page-size: 20
+  max-page-size: 200
+
+logging:
+  level:
+    root: WARN
+    kr.devslab.examples: INFO
