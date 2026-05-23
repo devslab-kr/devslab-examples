@@ -124,7 +124,7 @@ curl -s http://localhost:8080/actuator/prometheus | grep ssrf_guard
 
 | 파일 | 왜 |
 | --- | --- |
-| `build.gradle.kts` | 표준 스타터 외 의존성은 `kr.devslab:ssrf-guard:3.1.0`, `:ssrf-guard-resttemplate:3.0.1`, `:ssrf-guard-webclient:3.0.1` 셋뿐 — 별도 configuration 클래스 불필요 |
+| `build.gradle.kts` | 표준 스타터 외 의존성은 `kr.devslab:ssrf-guard:3.1.0`, `:ssrf-guard-resttemplate:3.1.0`, `:ssrf-guard-webclient:3.1.0` 셋뿐 — 별도 configuration 클래스 불필요 |
 | `application.yml` | 모든 `ssrf.guard.*` 옵션이 한 곳에 주석과 함께 |
 | `web/FetchController.java` | RestClient 전체 — 3줄 setup, 가드는 보이지 않게 실행 |
 | `web/FetchResttemplateController.java` | RestTemplate 동일 — 레거시 코드 마이그레이션 불필요 |
