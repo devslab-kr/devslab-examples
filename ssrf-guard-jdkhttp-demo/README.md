@@ -31,7 +31,7 @@ curl 'http://localhost:8080/fetch?url=https://evil.com/' | jq
 
 | File | Why |
 | --- | --- |
-| `build.gradle.kts` | One dep: `kr.devslab:ssrf-guard-jdkhttp:3.0.0` |
+| `build.gradle.kts` | One dep: `kr.devslab:ssrf-guard-jdkhttp:3.0.1` |
 | `SsrfGuardJdkHttpDemoApplication.java` | The whole story: build `HostPolicy` → `UrlPolicy` → wrap `HttpClient` |
 | `JdkHttpDemoController.java` | Calls `client.send(req, ...)` like any other HttpClient — the wrap is invisible at the call site |
 
