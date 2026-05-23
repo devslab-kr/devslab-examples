@@ -14,11 +14,6 @@ spring:
     init:
       mode: always
 
-  jackson:
-    serialization:
-      # ISO-8601 strings for Instant — keeps JSON cursor payloads human-readable
-      # in the dev console when running without a signing secret.
-      write-dates-as-timestamps: false
 
 mybatis:
   mapper-locations: classpath:mapper/**/*.xml
