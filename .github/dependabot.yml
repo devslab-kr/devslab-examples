@@ -1,0 +1,82 @@
+# Keeps every standalone Gradle demo in this repo up to date with the
+# Spring Boot ecosystem and the devslab-kr starters they showcase.
+#
+# Each demo is an independent Gradle project (its own settings.gradle.kts and
+# wrapper), so Dependabot needs to be told about each directory explicitly.
+# We use `directories:` (plural) so one ecosystem entry covers them all
+# with a shared group/schedule/label policy — much less duplication than
+# nine near-identical entries.
+
+version: 2
+
+updates:
+  # ---------------------------------------------------------------------
+  # Gradle: every demo + the starter ecosystems they depend on.
+  # ---------------------------------------------------------------------
+  - package-ecosystem: "gradle"
+    directories:
+      - "/easy-paging-demo"
+      - "/easy-paging-keyset-demo"
+      - "/easy-paging-postgres-demo"
+      - "/easy-paging-reactive-demo"
+      - "/ssrf-guard-demo"
+      - "/ssrf-guard-springai-demo"
+      - "/ssrf-guard-feign-demo"
+      - "/ssrf-guard-jdkhttp-demo"
+      - "/ssrf-guard-okhttp-demo"
+    schedule:
+      interval: "weekly"
+      day: "monday"
+      time: "09:00"
+      timezone: "Asia/Seoul"
+    open-pull-requests-limit: 10
+    labels:
+      - "dependencies"
+    commit-message:
+      prefix: "build(deps)"
+      include: "scope"
+    # Group related bumps into single PRs to keep the queue manageable.
+    groups:
+      # devslab-kr starters this repo exists to showcase — every new release
+      # should produce one tight PR per demo, not N PRs across submodules.
+      easy-paging:
+        patterns:
+          - "kr.devslab:easy-paging*"
+      ssrf-guard:
+        patterns:
+          - "kr.devslab:ssrf-guard*"
+      # Spring Boot moves as a unit; bump everything together or nothing.
+      spring-boot:
+        patterns:
+          - "org.springframework.boot:*"
+          - "io.spring.dependency-management"
+      # Test deps — none of these affect runtime behaviour, batch them.
+      test-tooling:
+        patterns:
+          - "org.testcontainers:*"
+          - "org.springframework.boot:spring-boot-testcontainers"
+          - "io.projectreactor:reactor-test"
+          - "org.junit*:*"
+      # Database drivers — usually bumped together when Spring Boot moves.
+      database-drivers:
+        patterns:
+          - "org.postgresql:*"
+          - "com.h2database:h2"
+          - "io.r2dbc:*"
+
+  # ---------------------------------------------------------------------
+  # GitHub Actions workflows used by the CI in .github/workflows.
+  # ---------------------------------------------------------------------
+  - package-ecosystem: "github-actions"
+    directory: "/"
+    schedule:
+      interval: "weekly"
+      day: "monday"
+      time: "09:00"
+      timezone: "Asia/Seoul"
+    labels:
+      - "dependencies"
+      - "github-actions"
+    commit-message:
+      prefix: "build(ci)"
+      include: "scope"
