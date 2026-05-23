@@ -20,8 +20,8 @@ dependencies {
     implementation("org.springframework.boot:spring-boot-starter-data-jpa")
 
     // The library this demo showcases — JPA backend.
-    implementation("kr.devslab:api-log-core:3.0.0")
-    implementation("kr.devslab:api-log-jpa:3.0.0")
+    implementation("kr.devslab:api-log-core:3.0.1")
+    implementation("kr.devslab:api-log-jpa:3.0.1")
 
     runtimeOnly("org.postgresql:postgresql")
 

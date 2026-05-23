@@ -28,8 +28,8 @@ dependencies {
     // the reactive ApiLogWriter + the reactive schema initializer.
     // api-log 3.0.0 is built against Spring Boot 3.5.6 (lib major = SB major
     // per VERSIONING.md), so this demo pins the plugin to 3.5.6 to match.
-    implementation("kr.devslab:api-log-core:3.0.0")
-    implementation("kr.devslab:api-log-r2dbc:3.0.0")
+    implementation("kr.devslab:api-log-core:3.0.1")
+    implementation("kr.devslab:api-log-r2dbc:3.0.1")
 
     // R2DBC PostgreSQL driver — for the app's runtime path.
     runtimeOnly("org.postgresql:r2dbc-postgresql")

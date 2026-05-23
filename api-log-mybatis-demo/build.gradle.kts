@@ -20,8 +20,8 @@ dependencies {
     implementation("org.mybatis.spring.boot:mybatis-spring-boot-starter:3.0.4")
 
     // The library this demo showcases - MyBatis backend.
-    implementation("kr.devslab:api-log-core:3.0.0")
-    implementation("kr.devslab:api-log-mybatis:3.0.0")
+    implementation("kr.devslab:api-log-core:3.0.1")
+    implementation("kr.devslab:api-log-mybatis:3.0.1")
 
     runtimeOnly("org.postgresql:postgresql")
 
