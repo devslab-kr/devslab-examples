@@ -26,13 +26,7 @@ dependencies {
     implementation("org.springframework.cloud:spring-cloud-starter-openfeign")
 
     // The library this demo showcases. Pulls in ssrf-guard-core transitively.
-    implementation("kr.devslab:ssrf-guard-feign:3.0.0")
-
-    // ssrf-guard 3.0.0 autoconfig references MeterRegistry by type, so we
-    // need micrometer-core on the classpath even though we don't use metrics
-    // in the demo. Fixed in ssrf-guard 3.0.1 by gating the metrics bean
-    // behind @ConditionalOnClass(MeterRegistry.class).
-    implementation("io.micrometer:micrometer-core")
+    implementation("kr.devslab:ssrf-guard-feign:3.0.1")
 
     testImplementation("org.springframework.boot:spring-boot-starter-test")
     testRuntimeOnly("org.junit.platform:junit-platform-launcher")
