@@ -1,0 +1,38 @@
+# Self-contained keyset demo: H2 in-memory + MyBatis + easy-paging keyset config.
+
+spring:
+  application:
+    name: easy-paging-keyset-demo
+
+  datasource:
+    url: jdbc:h2:mem:easypagingkeysetdemo;DB_CLOSE_DELAY=-1;MODE=PostgreSQL
+    driver-class-name: org.h2.Driver
+    username: sa
+    password:
+
+  sql:
+    init:
+      mode: always
+
+
+mybatis:
+  mapper-locations: classpath:mapper/**/*.xml
+  configuration:
+    map-underscore-to-camel-case: true
+
+easy-paging:
+  enabled: true
+  keyset:
+    # IMPORTANT in production. With an empty secret, cursors are Base64-encoded
+    # but NOT authenticated — a malicious client could forge a cursor that
+    # targets rows they shouldn't see (e.g. by tampering with a tenant key).
+    # The demo intentionally leaves it blank so cursors are inspectable;
+    # override via env var when trying a "production-like" run:
+    #   EASY_PAGING_CURSOR_SECRET='some-long-random-string' ./gradlew bootRun
+    cursor-secret: ${EASY_PAGING_CURSOR_SECRET:}
+    max-cursor-bytes: 2048
+
+logging:
+  level:
+    root: WARN
+    kr.devslab.examples: INFO
