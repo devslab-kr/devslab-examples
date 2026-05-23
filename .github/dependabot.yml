@@ -56,6 +56,23 @@ updates:
         update-types: ["version-update:semver-major"]
       - dependency-name: "gradle"
         update-types: ["version-update:semver-major"]
+      # The starter family itself ships separate release lines for SB3
+      # (0.4.x) and SB4 (0.5.x+). A major bump of the easy-paging
+      # starter here would carry the SB3 demos into SB4 territory and
+      # break them (PR #40 was the first time we saw this in the wild
+      # — dependabot bumped to 0.5.0 across the SB3 demos and CI went
+      # red on all 4). Hold easy-paging majors so the SB3 demos stay
+      # on the 0.4.x line that matches their Spring Boot pin.
+      - dependency-name: "kr.devslab:easy-paging-spring-boot-starter"
+        update-types: ["version-update:semver-major"]
+      - dependency-name: "kr.devslab:easy-paging-spring-boot-starter-reactive"
+        update-types: ["version-update:semver-major"]
+      # Same shape applies to ssrf-guard's hypothetical SB4-only major
+      # release, if/when it ships — guard against it in advance.
+      - dependency-name: "kr.devslab:ssrf-guard"
+        update-types: ["version-update:semver-major"]
+      - dependency-name: "kr.devslab:ssrf-guard-*"
+        update-types: ["version-update:semver-major"]
     groups:
       easy-paging:
         patterns:
