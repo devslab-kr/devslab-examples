@@ -1,6 +1,6 @@
 plugins {
     java
-    id("org.springframework.boot") version "4.0.6"
+    id("org.springframework.boot") version "3.5.6"
     id("io.spring.dependency-management") version "1.1.7"
 }
 
@@ -26,7 +26,6 @@ dependencies {
     runtimeOnly("org.postgresql:postgresql")
 
     testImplementation("org.springframework.boot:spring-boot-starter-test")
-    testImplementation("org.springframework.boot:spring-boot-starter-webmvc-test")
     testRuntimeOnly("org.junit.platform:junit-platform-launcher")
 
     // Awaitility — api-log writes happen on a separate event-listener thread,
@@ -34,10 +33,13 @@ dependencies {
     // than sleeping with a fixed timeout.
     testImplementation("org.awaitility:awaitility:4.2.2")
 
-    testImplementation(platform("org.testcontainers:testcontainers-bom:2.0.5"))
+    // Testcontainers — tests spin up a real PostgreSQL container instead of
+    // relying on a developer/CI-side install. @ServiceConnection (added in
+    // Spring Boot 3.1) auto-rewires the datasource to the container, so no
+    // application-test.yml shenanigans needed.
     testImplementation("org.springframework.boot:spring-boot-testcontainers")
-    testImplementation("org.testcontainers:testcontainers-postgresql")
-    testImplementation("org.testcontainers:testcontainers-junit-jupiter")
+    testImplementation("org.testcontainers:postgresql")
+    testImplementation("org.testcontainers:junit-jupiter")
 }
 
 tasks.named<Test>("test") {
