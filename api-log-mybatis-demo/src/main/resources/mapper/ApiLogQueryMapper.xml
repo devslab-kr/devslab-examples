@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+    "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="kr.devslab.examples.apilogmybatis.widget.ApiLogQueryMapper">
+
+    <resultMap id="apiLogRow" type="kr.devslab.apilog.mybatis.model.ApiLogRow">
+        <id property="id" column="id"/>
+        <result property="eventType"    column="event_type"/>
+        <result property="requestId"    column="request_id"/>
+        <result property="endpoint"     column="endpoint"/>
+        <result property="payload"      column="payload"/>
+        <result property="response"     column="response"/>
+        <result property="statusCode"   column="status_code"/>
+        <result property="errorMessage" column="error_message"/>
+        <result property="timestamp"    column="timestamp"/>
+        <result property="retryCount"   column="retry_count"/>
+        <result property="isRetry"      column="is_retry"/>
+    </resultMap>
+
+    <select id="findRecent" resultMap="apiLogRow">
+        SELECT id, event_type, request_id, endpoint,
+               payload::text AS payload, response::text AS response,
+               status_code, error_message::text AS error_message,
+               timestamp, retry_count, is_retry
+        FROM api_log
+        ORDER BY timestamp DESC, id DESC
+        LIMIT #{limit}
+    </select>
+
+    <select id="findByEvent" resultMap="apiLogRow">
+        SELECT id, event_type, request_id, endpoint,
+               payload::text AS payload, response::text AS response,
+               status_code, error_message::text AS error_message,
+               timestamp, retry_count, is_retry
+        FROM api_log
+        WHERE event_type = #{eventType}
+        ORDER BY timestamp DESC, id DESC
+    </select>
+
+</mapper>

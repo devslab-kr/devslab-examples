@@ -1,0 +1,37 @@
+spring:
+  application:
+    name: api-log-r2dbc-demo
+
+  # R2DBC connection — non-blocking driver, separate config namespace from
+  # spring.datasource. Spring Boot auto-builds a ConnectionFactory from this.
+  r2dbc:
+    url: r2dbc:postgresql://localhost:5432/apilog
+    username: apilog
+    password: apilog
+
+api:
+  log:
+    enabled: true
+    r2dbc:
+      # ApiLogR2dbcSchemaInitializer creates the api_log table on boot. This
+      # is the R2DBC-flavoured equivalent of api.log.schema.management=BUILTIN
+      # (which only applies to the JPA / MyBatis backends — R2DBC has its own
+      # property because the underlying mechanism is different).
+      schema:
+        enabled: true
+
+# Base URL used by the auto-configured ReactiveApiClientUtil bean. We loop
+# back to ourselves so the demo is self-contained — the same app exposes both
+# the "upstream" endpoint that responds, and the "client" endpoint that calls
+# the upstream and logs the call. In a real app this points at an external service.
+api-log-demo:
+  upstream-base-url: http://localhost:${server.port:8080}
+
+server:
+  port: 8080
+
+logging:
+  level:
+    root: WARN
+    kr.devslab.examples: INFO
+    kr.devslab.apilog: INFO

@@ -43,6 +43,16 @@ Spring Boot 3.3–3.5 사용 중인 앱용. 스타터의 [`3.x` 브랜치](https
 | [`ssrf-guard-jdkhttp-demo`](ssrf-guard-jdkhttp-demo/) | `java.net.http.HttpClient`(Java 11+) 래퍼 — 라이브러리 자체엔 Spring 의존성 없음. `main()`에서 3줄 wiring | [![Maven Central](https://img.shields.io/maven-central/v/kr.devslab/ssrf-guard-jdkhttp?label=kr.devslab%3Assrf-guard-jdkhttp)](https://central.sonatype.com/artifact/kr.devslab/ssrf-guard-jdkhttp) |
 | [`ssrf-guard-okhttp-demo`](ssrf-guard-okhttp-demo/) | OkHttp `Interceptor` + `Dns` — Spring 필요 없음. `OkHttpClient.Builder`에 3줄 wiring | [![Maven Central](https://img.shields.io/maven-central/v/kr.devslab/ssrf-guard-okhttp?label=kr.devslab%3Assrf-guard-okhttp)](https://central.sonatype.com/artifact/kr.devslab/ssrf-guard-okhttp) |
 
+### api-log
+
+[api-log](https://github.com/devslab-kr/api-log) 스타터를 통한 비동기 API 호출 로깅 (PostgreSQL JSONB) — 영속 백엔드별 데모 1개씩. 모든 데모가 **self-loopback** 디자인: 같은 앱이 `/upstream/widgets` 엔드포인트 ("호출당하는 서비스")와 `/client/widgets` 엔드포인트 (api-log HTTP 클라이언트 유틸로 upstream 호출) 둘 다 노출. 세 번째 `/api-log` 엔드포인트가 `api_log` 테이블을 읽어줘서 INITIATED → SUCCESS / ERROR / RETRY_ERROR 전체 라이프사이클을 데모 안에서 curl로 바로 확인 가능. 로컬 DB는 Docker Compose, 통합 테스트는 Testcontainers + `@ServiceConnection`.
+
+| 데모 | 보여주는 것 | Maven Central |
+| --- | --- | --- |
+| [`api-log-jpa-demo`](api-log-jpa-demo/) | **JPA 백엔드** — Spring MVC + `RestApiClientUtil` (블로킹) + `JpaApiLogWriter`. `ApiLogRepository` (Spring Data JPA)로 로그 행을 읽어옴. Servlet/JPA 앱의 가장 흔한 drop-in. | [![Maven Central](https://img.shields.io/maven-central/v/kr.devslab/api-log-jpa?label=kr.devslab%3Aapi-log-jpa)](https://central.sonatype.com/artifact/kr.devslab/api-log-jpa) |
+| [`api-log-mybatis-demo`](api-log-mybatis-demo/) | **MyBatis 백엔드** — Spring MVC + `RestApiClientUtil` + `MybatisApiLogWriter`. 번들 `ApiLogMapper`는 request_id 조회용, `recent` / `by-event` 쿼리는 데모가 커스텀 `ApiLogQueryMapper` (xml) 추가. 이미 MyBatis 쓰고 JPA 안 원하는 팀용. | [![Maven Central](https://img.shields.io/maven-central/v/kr.devslab/api-log-mybatis?label=kr.devslab%3Aapi-log-mybatis)](https://central.sonatype.com/artifact/kr.devslab/api-log-mybatis) |
+| [`api-log-r2dbc-demo`](api-log-r2dbc-demo/) | **R2DBC 백엔드 (리액티브)** — WebFlux + `ReactiveApiClientUtil` (`Mono` 기반) + `R2dbcApiLogWriter`. 리더는 `DatabaseClient`로 `Flux<ApiLogView>` 스트리밍. HTTP 경로 전체 논블로킹; api-log 쓰기도 논블로킹. 요청 경로에 JDBC가 전혀 없는 WebFlux 앱용. | [![Maven Central](https://img.shields.io/maven-central/v/kr.devslab/api-log-r2dbc?label=kr.devslab%3Aapi-log-r2dbc)](https://central.sonatype.com/artifact/kr.devslab/api-log-r2dbc) |
+
 ## 컨벤션
 
 - 각 데모는 **독립 Gradle 프로젝트** — 자체 `settings.gradle.kts`, `build.gradle.kts`, `gradlew`를 가짐. 루트 빌드를 공유하지 않으므로 의존성 버전이나 JDK 타겟이 독립적으로 변할 수 있음.

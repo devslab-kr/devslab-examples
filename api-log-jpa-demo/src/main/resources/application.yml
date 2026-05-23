@@ -1,0 +1,38 @@
+spring:
+  application:
+    name: api-log-jpa-demo
+
+  datasource:
+    url: jdbc:postgresql://localhost:5432/apilog
+    username: apilog
+    password: apilog
+    driver-class-name: org.postgresql.Driver
+
+  jpa:
+    hibernate:
+      ddl-auto: none           # api-log starter manages api_log schema; we have no other entities
+    properties:
+      hibernate:
+        format_sql: false
+
+api:
+  log:
+    enabled: true
+    schema:
+      management: BUILTIN      # starter creates api_log on boot
+
+# Base URL used by the auto-configured RestClient bean inside RestApiClientUtil.
+# We loop back to ourselves so the demo is self-contained — the same app exposes
+# both the "upstream" endpoint that responds, and the "client" endpoint that calls
+# the upstream and logs the call. In a real app this points at an external service.
+api-log-demo:
+  upstream-base-url: http://localhost:${server.port:8080}
+
+server:
+  port: 8080
+
+logging:
+  level:
+    root: WARN
+    kr.devslab.examples: INFO
+    kr.devslab.apilog: INFO

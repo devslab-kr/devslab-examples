@@ -1,0 +1,32 @@
+# Single-service compose file for the local "run it yourself" path.
+#
+# The CI / `./gradlew test` path does NOT use this file — Testcontainers spins
+# up its own ephemeral PostgreSQL on a random port. This compose file exists
+# so a human can do:
+#
+#   docker compose up -d db
+#   ./gradlew bootRun
+#
+# ...without installing Postgres on their laptop. The credentials and port
+# below match what application.yml reads.
+
+services:
+  db:
+    image: postgres:16-alpine
+    container_name: api-log-jpa-demo-db
+    environment:
+      POSTGRES_DB: apilog
+      POSTGRES_USER: apilog
+      POSTGRES_PASSWORD: apilog
+    ports:
+      - "5432:5432"
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U apilog -d apilog"]
+      interval: 5s
+      timeout: 3s
+      retries: 10
+    volumes:
+      - pgdata:/var/lib/postgresql/data
+
+volumes:
+  pgdata:

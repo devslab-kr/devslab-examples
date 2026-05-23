@@ -1,0 +1,34 @@
+spring:
+  application:
+    name: api-log-mybatis-demo
+  datasource:
+    url: jdbc:postgresql://localhost:5432/apilog
+    username: apilog
+    password: apilog
+    driver-class-name: org.postgresql.Driver
+
+api:
+  log:
+    enabled: true
+    schema:
+      management: BUILTIN
+
+# Self-loopback - same app responds at /upstream/widgets and consumes via /client/widgets.
+# In a real app this points at an external service.
+api-log-demo:
+  upstream-base-url: http://localhost:${server.port:8080}
+
+mybatis:
+  mapper-locations:
+    - classpath:mapper/**/*.xml
+  configuration:
+    map-underscore-to-camel-case: true
+
+server:
+  port: 8080
+
+logging:
+  level:
+    root: WARN
+    kr.devslab.examples: INFO
+    kr.devslab.apilog: INFO

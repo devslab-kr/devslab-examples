@@ -43,6 +43,16 @@ For apps still on Spring Boot 3.3–3.5. The starter's [`3.x` branch](https://gi
 | [`ssrf-guard-jdkhttp-demo`](ssrf-guard-jdkhttp-demo/) | `java.net.http.HttpClient` (Java 11+) wrapper — no Spring required by the library. Three-line wiring in `main()`. | [![Maven Central](https://img.shields.io/maven-central/v/kr.devslab/ssrf-guard-jdkhttp?label=kr.devslab%3Assrf-guard-jdkhttp)](https://central.sonatype.com/artifact/kr.devslab/ssrf-guard-jdkhttp) |
 | [`ssrf-guard-okhttp-demo`](ssrf-guard-okhttp-demo/) | OkHttp `Interceptor` + `Dns` integration — also no Spring needed. Three-line wiring on `OkHttpClient.Builder`. | [![Maven Central](https://img.shields.io/maven-central/v/kr.devslab/ssrf-guard-okhttp?label=kr.devslab%3Assrf-guard-okhttp)](https://central.sonatype.com/artifact/kr.devslab/ssrf-guard-okhttp) |
 
+### api-log
+
+Async API-call logging into PostgreSQL JSONB via the [api-log](https://github.com/devslab-kr/api-log) starter — one demo per persistence backend. Every demo uses the **self-loopback** design: the same app exposes both an `/upstream/widgets` endpoint (the "service being called") and a `/client/widgets` endpoint that calls the upstream via the api-log HTTP client util. A third `/api-log` endpoint reads the `api_log` table so you can curl the full lifecycle — INITIATED → SUCCESS / ERROR / RETRY_ERROR — without leaving the demo. Docker Compose for the local DB; Testcontainers + `@ServiceConnection` for the integration tests.
+
+| Demo | Showcases | Maven Central |
+| --- | --- | --- |
+| [`api-log-jpa-demo`](api-log-jpa-demo/) | **JPA backend** — Spring MVC + `RestApiClientUtil` (blocking) + `JpaApiLogWriter`. Reads the logged rows via `ApiLogRepository` (Spring Data JPA). The most common drop-in for Servlet/JPA apps. | [![Maven Central](https://img.shields.io/maven-central/v/kr.devslab/api-log-jpa?label=kr.devslab%3Aapi-log-jpa)](https://central.sonatype.com/artifact/kr.devslab/api-log-jpa) |
+| [`api-log-mybatis-demo`](api-log-mybatis-demo/) | **MyBatis backend** — Spring MVC + `RestApiClientUtil` + `MybatisApiLogWriter`. Uses the bundled `ApiLogMapper` for by-request lookup, plus a custom `ApiLogQueryMapper` (xml) for `recent` / `by-event` queries. For teams already on MyBatis who don't want JPA. | [![Maven Central](https://img.shields.io/maven-central/v/kr.devslab/api-log-mybatis?label=kr.devslab%3Aapi-log-mybatis)](https://central.sonatype.com/artifact/kr.devslab/api-log-mybatis) |
+| [`api-log-r2dbc-demo`](api-log-r2dbc-demo/) | **R2DBC backend (reactive)** — WebFlux + `ReactiveApiClientUtil` (`Mono`-based) + `R2dbcApiLogWriter`. Reader uses `DatabaseClient` for streaming `Flux<ApiLogView>`. Entire HTTP path is non-blocking; api-log writes also non-blocking. For WebFlux apps that have no JDBC anywhere on the request path. | [![Maven Central](https://img.shields.io/maven-central/v/kr.devslab/api-log-r2dbc?label=kr.devslab%3Aapi-log-r2dbc)](https://central.sonatype.com/artifact/kr.devslab/api-log-r2dbc) |
+
 ## Conventions
 
 - Each demo is a **standalone Gradle project** — its own `settings.gradle.kts`, `build.gradle.kts`, and `gradlew`. Demos do not share a root build, so their dependency versions and JDK targets can drift independently.
