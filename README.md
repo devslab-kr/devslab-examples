@@ -10,6 +10,7 @@ Each subdirectory is an **independent** Spring Boot application with its own Gra
 | --- | --- | --- |
 | [`easy-paging-demo`](easy-paging-demo/) | Annotation-driven offset pagination with `@AutoPaginate` (Spring Boot + MyBatis + H2) | [`kr.devslab:easy-paging-spring-boot-starter:0.4.0`](https://central.sonatype.com/artifact/kr.devslab/easy-paging-spring-boot-starter) |
 | [`easy-paging-keyset-demo`](easy-paging-keyset-demo/) | Cursor (keyset) pagination with `@KeysetPaginate` — composite `(time, id)` key, stable under writes, no `OFFSET`/`COUNT(*)` | [`kr.devslab:easy-paging-spring-boot-starter:0.4.0`](https://central.sonatype.com/artifact/kr.devslab/easy-paging-spring-boot-starter) |
+| [`easy-paging-postgres-demo`](easy-paging-postgres-demo/) | Same starter against **real PostgreSQL** — Docker Compose for `bootRun`, Testcontainers + `@ServiceConnection` for tests, no local DB install | [`kr.devslab:easy-paging-spring-boot-starter:0.4.0`](https://central.sonatype.com/artifact/kr.devslab/easy-paging-spring-boot-starter) |
 
 ## Conventions
 
