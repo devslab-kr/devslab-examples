@@ -1,8 +1,12 @@
 # devslab-examples
 
+**English** · [한국어](README.ko.md)
+
 Runnable examples for [devslab-kr](https://github.com/devslab-kr) Spring Boot starters and libraries.
 
 Each subdirectory is an **independent** Spring Boot application with its own Gradle build. Pick one, `cd` into it, and run `./gradlew bootRun`.
+
+> 💬 Questions, ideas, or sharing your application of the demos? Head to [**Discussions**](https://github.com/devslab-kr/devslab-examples/discussions) — bilingual (English / Korean), maintained by the same folks who write the libraries.
 
 ## Examples
 

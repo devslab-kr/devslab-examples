@@ -1,5 +1,7 @@
 # ssrf-guard-jdkhttp-demo
 
+**English** · [한국어](README.ko.md)
+
 Runnable example for [`ssrf-guard-jdkhttp`](https://github.com/devslab-kr/ssrf-guard) — SSRF protection for the JDK standard `java.net.http.HttpClient` (Java 11+).
 
 **No Spring needed for the library itself.** This demo uses Spring Boot only to expose a REST endpoint for curl. The actual SSRF Guard wiring is three lines in `SsrfGuardJdkHttpDemoApplication.java`.

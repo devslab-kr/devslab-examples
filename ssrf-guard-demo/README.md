@@ -1,5 +1,7 @@
 # ssrf-guard-demo
 
+**English** · [한국어](README.ko.md)
+
 Runnable example for [`ssrf-guard`](https://github.com/devslab-kr/ssrf-guard) — SSRF (Server-Side Request Forgery) protection for the JVM.
 
 One Spring Boot app shows **all three Spring HTTP clients** wired through the same `UrlPolicy`:

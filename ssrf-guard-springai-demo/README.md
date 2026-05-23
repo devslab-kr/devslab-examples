@@ -1,5 +1,7 @@
 # ssrf-guard-springai-demo
 
+**English** · [한국어](README.ko.md)
+
 Runnable example for [`ssrf-guard-springai`](https://github.com/devslab-kr/ssrf-guard) — SSRF protection for **Spring AI tool calls**, the new attack surface LLM agents have introduced.
 
 ## Why this demo exists
