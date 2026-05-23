@@ -1,0 +1,57 @@
+# SSRF Guard demo configuration.
+#
+# The whitelist below allows two outbound destinations:
+#   - httpbin.org      — a public HTTP echo service, lets the demo make real
+#                         requests over the network so curl outputs aren't faked.
+#   - api.github.com   — a second real host, to show that multiple entries
+#                         coexist.
+# Everything else is rejected by the host-policy gate.
+#
+# Try tightening / loosening the keys and re-running to see the effect.
+
+spring:
+  application:
+    name: ssrf-guard-demo
+
+ssrf:
+  guard:
+    enabled: true
+
+    # Schemes + ports — defaults shown, included here so the demo is
+    # self-documenting. -1 means "the scheme's default port" (so URIs
+    # like https://httpbin.org/get with no explicit :443 are allowed).
+    allowed-schemes: [http, https]
+    allowed-ports: [-1, 80, 443]
+
+    # Whitelist. Switching `suffixes` to e.g. `[httpbin.org]` would also let
+    # `api.httpbin.org` in (label-boundary suffix match). `exact-hosts` requires
+    # the full hostname to match.
+    exact-hosts:
+      - httpbin.org
+      - api.github.com
+    suffixes: [ ]
+
+    # Defense-in-depth (defaults shown so the demo lists them explicitly).
+    block-private-networks: true       # DNS-time filter: loopback / RFC-1918 / link-local / AWS metadata
+    reject-ip-literal-hosts: true      # URL-time: blocks http://127.0.0.1, http://2130706433, etc.
+    reject-user-info: true             # URL-time: blocks http://user:pass@host/...
+    follow-redirects: true             # re-validates every 3xx hop
+
+    connect-timeout: 5s
+    read-timeout: 10s
+
+# Expose actuator endpoints so the demo can show metrics:
+#   curl http://localhost:8080/actuator/metrics/ssrf_guard_blocked_total
+#   curl http://localhost:8080/actuator/prometheus | grep ssrf_guard
+management:
+  endpoints:
+    web:
+      exposure:
+        include: health, info, metrics, prometheus
+
+# Calm startup log so curl examples in the README stand out.
+logging:
+  level:
+    root: WARN
+    kr.devslab.examples: INFO
+    kr.devslab.ssrfguard: INFO     # WARN logs from blocked requests stay visible

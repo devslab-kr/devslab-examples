@@ -1,0 +1,37 @@
+# SSRF Guard — Spring AI demo configuration.
+#
+# Same `ssrf.guard.*` keys as the basic demo, but the *consumer* this time is
+# a Spring AI ToolCallback (FetchUrlTool) — not a controller calling RestClient
+# directly. The ssrf-guard-springai BeanPostProcessor automatically wraps the
+# tool callback, so URL-shaped arguments coming from the LLM are validated
+# before the tool executes.
+
+spring:
+  application:
+    name: ssrf-guard-springai-demo
+
+ssrf:
+  guard:
+    enabled: true
+
+    # A pretend partner-API allow-list.
+    exact-hosts:
+      - httpbin.org
+      - api.partner.com
+
+    # Defense-in-depth — all defaults, shown here for transparency.
+    block-private-networks: true
+    reject-ip-literal-hosts: true
+    reject-user-info: true
+
+    # Opt-out switch for the auto-wrapping BeanPostProcessor (default true).
+    # If you'd rather pick which ToolCallbacks get wrapped, flip this off and
+    # use SsrfGuardedToolCallbacks.wrap(...) by hand.
+    springai:
+      wrap-tool-callbacks: true
+
+logging:
+  level:
+    root: WARN
+    kr.devslab.examples: INFO
+    kr.devslab.ssrfguard: INFO

@@ -1,0 +1,17 @@
+spring:
+  application:
+    name: ssrf-guard-okhttp-demo
+
+ssrf:
+  guard:
+    enabled: true
+    exact-hosts:
+      - httpbin.org
+    block-private-networks: true
+    reject-ip-literal-hosts: true
+    reject-user-info: true
+
+logging:
+  level:
+    root: WARN
+    kr.devslab.examples: INFO

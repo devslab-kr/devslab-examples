@@ -1,0 +1,20 @@
+spring:
+  application:
+    name: ssrf-guard-jdkhttp-demo
+
+# Whitelist via @ConfigurationProperties — the same property keys work for
+# every ssrf-guard module, including the no-Spring ones (the JDK demo uses
+# Spring just to expose a REST endpoint).
+ssrf:
+  guard:
+    enabled: true
+    exact-hosts:
+      - httpbin.org
+    block-private-networks: true
+    reject-ip-literal-hosts: true
+    reject-user-info: true
+
+logging:
+  level:
+    root: WARN
+    kr.devslab.examples: INFO
