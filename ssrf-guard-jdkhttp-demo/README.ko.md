@@ -33,7 +33,7 @@ curl 'http://localhost:8080/fetch?url=https://evil.com/' | jq
 
 | 파일 | 왜 |
 | --- | --- |
-| `build.gradle.kts` | 의존성 하나: `kr.devslab:ssrf-guard-jdkhttp:3.0.1` |
+| `build.gradle.kts` | 의존성 하나: `kr.devslab:ssrf-guard-jdkhttp:3.1.0` |
 | `SsrfGuardJdkHttpDemoApplication.java` | 전체 스토리: `HostPolicy` → `UrlPolicy` → `HttpClient` wrap |
 | `JdkHttpDemoController.java` | 평범한 `client.send(req, ...)` — 호출부에서 wrap은 보이지 않음 |
 
