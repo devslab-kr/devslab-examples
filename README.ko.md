@@ -36,11 +36,12 @@ Spring Boot 3.3–3.5 사용 중인 앱용. 스타터의 [`0.4.x` 브랜치](htt
 
 | 데모 | 보여주는 것 | Maven Central 좌표 |
 | --- | --- | --- |
-| [`ssrf-guard-demo`](ssrf-guard-demo/) | SSRF(Server-Side Request Forgery) 방어를 3종 Spring HTTP 클라이언트(RestClient, RestTemplate, WebClient)에 동시 적용 — 모두 같은 `UrlPolicy`. 15가지 공격 매트릭스 엔드포인트, Micrometer 메트릭 포함 | [`kr.devslab:ssrf-guard:3.0.1`](https://central.sonatype.com/artifact/kr.devslab/ssrf-guard) |
-| [`ssrf-guard-springai-demo`](ssrf-guard-springai-demo/) | ⭐ **LLM 에이전트 SSRF 방어.** 모든 Spring AI `ToolCallback`을 자동으로 wrap해서 LLM이 `fetch_url`을 호출하기 전에 URL 인자를 검증. 가짜 LLM 드라이버로 API 키 없이 오프라인 실행 가능 | [`kr.devslab:ssrf-guard-springai:3.0.1`](https://central.sonatype.com/artifact/kr.devslab/ssrf-guard-springai) |
-| [`ssrf-guard-feign-demo`](ssrf-guard-feign-demo/) | Spring Cloud OpenFeign `RequestInterceptor` — `@FeignClient` 호출에 동일 `UrlPolicy` 적용. 화이트리스트 / 비화이트리스트 `@FeignClient` 2개로 차단 경로 시연 | [`kr.devslab:ssrf-guard-feign:3.0.1`](https://central.sonatype.com/artifact/kr.devslab/ssrf-guard-feign) |
-| [`ssrf-guard-jdkhttp-demo`](ssrf-guard-jdkhttp-demo/) | `java.net.http.HttpClient`(Java 11+) 래퍼 — 라이브러리 자체엔 Spring 의존성 없음. `main()`에서 3줄 wiring | [`kr.devslab:ssrf-guard-jdkhttp:3.0.1`](https://central.sonatype.com/artifact/kr.devslab/ssrf-guard-jdkhttp) |
-| [`ssrf-guard-okhttp-demo`](ssrf-guard-okhttp-demo/) | OkHttp `Interceptor` + `Dns` — Spring 필요 없음. `OkHttpClient.Builder`에 3줄 wiring | [`kr.devslab:ssrf-guard-okhttp:3.0.1`](https://central.sonatype.com/artifact/kr.devslab/ssrf-guard-okhttp) |
+| [`ssrf-guard-demo`](ssrf-guard-demo/) | SSRF(Server-Side Request Forgery) 방어를 3종 Spring HTTP 클라이언트(RestClient, RestTemplate, WebClient)에 동시 적용 — 모두 같은 `UrlPolicy`. 15가지 공격 매트릭스 엔드포인트, Micrometer 메트릭 포함 | [`kr.devslab:ssrf-guard:3.1.0`](https://central.sonatype.com/artifact/kr.devslab/ssrf-guard) |
+| [`ssrf-guard-springai-demo`](ssrf-guard-springai-demo/) | ⭐ **LLM 에이전트 SSRF 방어 (Spring AI).** 모든 Spring AI `ToolCallback`을 자동으로 wrap해서 LLM이 `fetch_url`을 호출하기 전에 URL 인자를 검증. 가짜 LLM 드라이버로 API 키 없이 오프라인 실행 가능 | [`kr.devslab:ssrf-guard-springai:3.1.0`](https://central.sonatype.com/artifact/kr.devslab/ssrf-guard-springai) |
+| [`ssrf-guard-langchain4j-demo`](ssrf-guard-langchain4j-demo/) | ⭐ **LLM 에이전트 SSRF 방어 (LangChain4j).** 자바의 또 다른 메이저 LLM 프레임워크용 — 모든 `ToolExecutor` 빈을 wrap, executor 실행 전에 `ToolExecutionRequest.arguments()` JSON을 검증 | [`kr.devslab:ssrf-guard-langchain4j:3.1.0`](https://central.sonatype.com/artifact/kr.devslab/ssrf-guard-langchain4j) |
+| [`ssrf-guard-feign-demo`](ssrf-guard-feign-demo/) | Spring Cloud OpenFeign `RequestInterceptor` — `@FeignClient` 호출에 동일 `UrlPolicy` 적용. 화이트리스트 / 비화이트리스트 `@FeignClient` 2개로 차단 경로 시연 | [`kr.devslab:ssrf-guard-feign:3.1.0`](https://central.sonatype.com/artifact/kr.devslab/ssrf-guard-feign) |
+| [`ssrf-guard-jdkhttp-demo`](ssrf-guard-jdkhttp-demo/) | `java.net.http.HttpClient`(Java 11+) 래퍼 — 라이브러리 자체엔 Spring 의존성 없음. `main()`에서 3줄 wiring | [`kr.devslab:ssrf-guard-jdkhttp:3.1.0`](https://central.sonatype.com/artifact/kr.devslab/ssrf-guard-jdkhttp) |
+| [`ssrf-guard-okhttp-demo`](ssrf-guard-okhttp-demo/) | OkHttp `Interceptor` + `Dns` — Spring 필요 없음. `OkHttpClient.Builder`에 3줄 wiring | [`kr.devslab:ssrf-guard-okhttp:3.1.0`](https://central.sonatype.com/artifact/kr.devslab/ssrf-guard-okhttp) |
 
 ## 컨벤션
 

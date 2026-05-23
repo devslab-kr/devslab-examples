@@ -22,7 +22,7 @@ dependencies {
     // (ssrf-guard-okhttp) has no Spring dependency.
     implementation("org.springframework.boot:spring-boot-starter-web")
 
-    implementation("kr.devslab:ssrf-guard-okhttp:3.0.1")
+    implementation("kr.devslab:ssrf-guard-okhttp:3.1.0")
     implementation("com.squareup.okhttp3:okhttp:4.12.0")
 
     testImplementation("org.springframework.boot:spring-boot-starter-test")

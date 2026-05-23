@@ -26,7 +26,7 @@ curl 'http://localhost:8080/fetch?url=https://evil.com/' | jq
 
 | 파일 | 왜 |
 | --- | --- |
-| `build.gradle.kts` | `kr.devslab:ssrf-guard-okhttp:3.0.1` + `com.squareup.okhttp3:okhttp:4.12.0` |
+| `build.gradle.kts` | `kr.devslab:ssrf-guard-okhttp:3.1.0` + `com.squareup.okhttp3:okhttp:4.12.0` |
 | `SsrfGuardOkHttpDemoApplication.java` | OkHttp 빌더에 3줄 — `.addInterceptor(...)`, `.dns(...)`, `.followRedirects(...)` |
 | `OkHttpDemoController.java` | 표준 OkHttp `newCall().execute()` — 호출부에서 wrap은 보이지 않음 |
 

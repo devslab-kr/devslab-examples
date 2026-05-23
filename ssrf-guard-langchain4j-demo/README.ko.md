@@ -1,30 +1,35 @@
-# ssrf-guard-springai-demo
+# ssrf-guard-langchain4j-demo
 
 [English](README.md) · **한국어**
 
-[`ssrf-guard-springai`](https://github.com/devslab-kr/ssrf-guard) — **Spring AI 툴 호출**에 대한 SSRF 방어. LLM 에이전트가 만든 새로운 공격 표면을 막는 실행 가능한 예제입니다.
+[`ssrf-guard-langchain4j`](https://github.com/devslab-kr/ssrf-guard) — **LangChain4j 툴 실행**에 대한 SSRF 방어. LLM 에이전트가 만든 새로운 공격 표면을 막는 실행 가능한 예제입니다.
+
+[`ssrf-guard-springai-demo`](../ssrf-guard-springai-demo)의 짝꿍: 보안 스토리는 같고, LLM 프레임워크만 다릅니다.
 
 ## 왜 이 데모가 존재하나
 
 모든 LLM 에이전트는 결국 `fetch_url(url: string) -> string` 같은 툴을 갖게 됩니다. LLM이 사용자 메시지를 보고 그 툴을 선택해서 URL을 전달하면, 코드는:
 
 ```java
-restClient.get().uri(url).retrieve().body(String.class);
+@Tool("Fetch a URL and return its body")
+String fetchUrl(String url) {
+    return restClient.get().uri(url).retrieve().body(String.class);
+}
 ```
 
 URL이 공격자 컨트롤이면 **SSRF 한 줄**입니다. 공격자는 URL을 직접 HTTP 파라미터에 주입할 필요도 없어요 — LLM이 그걸 요청하도록 유도만 하면 됩니다. ChatGPT, Perplexity, 거의 모든 RAG 파이프라인이 이 버그를 겪어봤습니다.
 
-`ssrf-guard-springai`는 Spring 컨텍스트의 모든 `ToolCallback` 빈을 `SsrfGuardedToolCallback`으로 wrap합니다. URL 형식의 인자가 들어오면 정책 검증 후에만 실제 툴이 실행되고, 거부되면 LLM이 해석하고 복구 가능한 구조화된 JSON 에러 문자열을 반환합니다 — 에이전트 루프를 깨는 예외 throw가 아님.
+`ssrf-guard-langchain4j`는 Spring 컨텍스트의 모든 `ToolExecutor` 빈을 `SsrfGuardedToolExecutor`로 wrap합니다. `ToolExecutionRequest.arguments()` JSON에서 URL 형식의 인자가 검출되면 정책 검증 후에만 실제 executor가 실행되고, 거부되면 LLM이 해석하고 복구 가능한 구조화된 JSON 에러 문자열을 반환합니다 — 에이전트 루프를 깨는 예외 throw가 아님.
 
 ## 전제조건
 
 - JDK 21+
-- **LLM API 키 필요 없음** — 데모의 `FakeLlmService`가 실제 LLM 역할을 대신해서 오프라인 실행. `ChatClient` (Spring AI 1.0)로 바꿔도 보안 스토리는 동일.
+- **LLM API 키 필요 없음** — 데모의 `FakeLlmService`가 실제 LLM 역할을 대신해서 오프라인 실행. 실제 `AiServices` 어시스턴트(`langchain4j-open-ai`, `langchain4j-anthropic` 등)로 바꿔도 보안 스토리는 동일.
 
 ## 실행
 
 ```bash
-cd ssrf-guard-springai-demo
+cd ssrf-guard-langchain4j-demo
 ./gradlew bootRun
 ```
 
@@ -81,7 +86,7 @@ LLM을 다양한 SSRF 시도로 유도할 자연어 프롬프트 카탈로그를
 래퍼는 전체 JSON 입력 트리를 walk해서 URL을 찾습니다. 그래서 LLM이 URL을 중첩된 객체에 숨겨도 (예: 복잡한 입력 스키마의 툴) 래퍼가 찾아냅니다:
 
 ```bash
-# 메시지 본문에 JSON으로 보내기, URL이 2단계 깊이로 중첩
+# 메시지 본문에 JSON으로 보내기 — message 안에 URL이 임베드됨
 curl -X POST http://localhost:8080/agent/chat \
   -H 'Content-Type: application/json' \
   -d '{"message":"please fetch http://169.254.169.254/ via nested context"}'
@@ -91,15 +96,15 @@ curl -X POST http://localhost:8080/agent/chat \
 
 | 파일 | 왜 |
 | --- | --- |
-| `build.gradle.kts` | 의존성 — `kr.devslab:ssrf-guard-springai:3.1.0` + `org.springframework.ai:spring-ai-model:1.0.7`. 끝 |
-| `application.yml` | `ssrf.guard.springai.wrap-tool-callbacks=true` — 마스터 스위치 (기본 true, 명시적 표기) |
-| `agent/FetchUrlTool.java` | 원시 툴 — **보안 코드 0줄**. wrap은 빈 후처리 시점에 일어남 |
-| `agent/FakeLlmService.java` | 가짜 LLM 드라이버. 프로덕션에선 `ChatClient`. 교체, 재컴파일, 끝 |
+| `build.gradle.kts` | 의존성 — `kr.devslab:ssrf-guard-langchain4j:3.1.0` + `dev.langchain4j:langchain4j:1.15.0`. 끝 |
+| `application.yml` | `ssrf.guard.langchain4j.wrap-tool-executors=true` — 마스터 스위치 (기본 true, 명시적 표기) |
+| `agent/FetchUrlTool.java` | 원시 executor — **보안 코드 0줄**. wrap은 빈 후처리 시점에 일어남 |
+| `agent/FakeLlmService.java` | 가짜 LLM 드라이버. 프로덕션에선 `AiServices` 어시스턴트. 교체, 재컴파일, 끝 |
 | `agent/AgentController.java` | HTTP 인터페이스 — `/agent/chat`, `/agent/attacks` |
 
-## ssrf-guard-springai 없으면 — 뭐가 통과하나
+## ssrf-guard-langchain4j 없으면 — 뭐가 통과하나
 
-`application.yml`에서 `ssrf.guard.springai.wrap-tool-callbacks`를 `false`로 바꾸고 재시작. AWS 메타데이터 curl 다시 실행하면:
+`application.yml`에서 `ssrf.guard.langchain4j.wrap-tool-executors`를 `false`로 바꾸고 재시작. AWS 메타데이터 curl 다시 실행하면:
 
 ```json
 {
@@ -110,29 +115,53 @@ curl -X POST http://localhost:8080/agent/chat \
 
 프로덕션에서는 `PRETEND-FETCHED`가 실제 응답 본문 — 즉 AWS 자격증명.
 
-## 실제 LLM 연동 (Spring AI 1.0)
+## 실제 LLM 연동 (LangChain4j 1.x AiServices)
 
-`FakeLlmService`를 Spring AI `ChatClient`로 교체:
+`FakeLlmService`를 `AiServices`로 만든 어시스턴트로 교체:
 
 ```java
+interface SupportAssistant {
+    String chat(String userMessage);
+}
+
 @Service
 public class RealLlmService {
 
-    private final ChatClient client;
+    private final SupportAssistant assistant;
 
-    public RealLlmService(ChatClient.Builder builder, ToolCallback fetchUrlTool) {
-        // 여기서 주입되는 fetchUrlTool은 SSRF-WRAPPED 인스턴스입니다 —
+    public RealLlmService(ChatModel chatModel,
+                          ToolSpecification fetchUrlSpec,
+                          ToolExecutor fetchUrlExecutor) {
+        // 여기서 주입되는 fetchUrlExecutor는 SSRF-WRAPPED 인스턴스입니다 —
         // BeanPostProcessor가 이 생성자보다 먼저 실행됨.
-        this.client = builder.defaultToolCallbacks(fetchUrlTool).build();
+        this.assistant = AiServices.builder(SupportAssistant.class)
+                .chatModel(chatModel)
+                .tools(Map.of(fetchUrlSpec, fetchUrlExecutor))
+                .build();
     }
 
     public String chat(String userMessage) {
-        return client.prompt(userMessage).call().content();
+        return assistant.chat(userMessage);
     }
 }
 ```
 
-모델 starter (`spring-ai-openai-spring-boot-starter`, `spring-ai-anthropic-spring-boot-starter` 등)와 API 키를 추가하면 Spring AI가 `ChatClient.Builder`를 자동설정해줍니다.
+`ChatModel`은 클래스패스의 모델 통합 (예: `dev.langchain4j:langchain4j-open-ai`, `dev.langchain4j:langchain4j-anthropic`, `dev.langchain4j:langchain4j-vertex-ai-gemini`, ...) 와 LangChain4j Spring Boot 프로퍼티의 API 키로 제공됩니다.
+
+### Spring 없이 (순수 LangChain4j)
+
+자동설정은 Spring 케이스를 처리합니다. 순수 LangChain4j (Spring 없음)에서는 executor 맵을 직접 wrap:
+
+```java
+UrlPolicy policy = ...;
+Map<ToolSpecification, ToolExecutor> raw = Map.of(fetchUrlSpec, fetchUrlExecutor);
+Map<ToolSpecification, ToolExecutor> safe = SsrfGuardedToolExecutors.wrap(raw, policy);
+
+SupportAssistant assistant = AiServices.builder(SupportAssistant.class)
+        .chatModel(chatModel)
+        .tools(safe)
+        .build();
+```
 
 ## 빌드 검증
 
@@ -140,14 +169,14 @@ public class RealLlmService {
 ./gradlew build
 ```
 
-스모크 테스트 `SsrfGuardSpringAiDemoApplicationTests`:
+스모크 테스트 `SsrfGuardLangchain4jDemoApplicationTests`:
 
-1. 화이트리스트 URL 정상 프롬프트가 툴까지 도달 (`blocked=false`)
+1. 화이트리스트 URL 정상 프롬프트가 executor까지 도달 (`blocked=false`)
 2. AWS 메타데이터 프롬프트가 wrap에서 차단 (`blocked=true`, `reason=blocked_ip_literal`)
 3. URL이 전혀 없는 프롬프트는 "no tool call" 응답 (LLM이 fetch할 게 없음)
 
 ## 더 읽기
 
 - ssrf-guard 도큐: <https://ssrf-guard.devslab.kr/>
-- Spring AI Tool Calling API: <https://docs.spring.io/spring-ai/reference/api/tools.html>
+- LangChain4j Tools API: <https://docs.langchain4j.dev/tutorials/tools>
 - LLM 에이전트 SSRF in the wild (2023-2024 사례): ChatGPT URL preview SSRF, OpenAI tool plugin SSRF, Microsoft Power Platform SSRF

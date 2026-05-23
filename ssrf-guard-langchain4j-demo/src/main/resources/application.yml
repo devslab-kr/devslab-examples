@@ -1,0 +1,37 @@
+# SSRF Guard — LangChain4j demo configuration.
+#
+# Same `ssrf.guard.*` keys as the basic / Spring AI demos. The *consumer* this
+# time is a LangChain4j ToolExecutor (FetchUrlTool#fetchUrlExecutor) — not a
+# Spring AI ToolCallback. The ssrf-guard-langchain4j BeanPostProcessor wraps
+# the executor automatically, so URL-shaped arguments coming from the LLM
+# are validated before the tool executes.
+
+spring:
+  application:
+    name: ssrf-guard-langchain4j-demo
+
+ssrf:
+  guard:
+    enabled: true
+
+    # A pretend partner-API allow-list.
+    exact-hosts:
+      - httpbin.org
+      - api.partner.com
+
+    # Defense-in-depth — all defaults, shown here for transparency.
+    block-private-networks: true
+    reject-ip-literal-hosts: true
+    reject-user-info: true
+
+    # Opt-out switch for the auto-wrapping BeanPostProcessor (default true).
+    # If you'd rather pick which ToolExecutors get wrapped, flip this off and
+    # use SsrfGuardedToolExecutors.wrapOne(...) / .wrap(...) by hand.
+    langchain4j:
+      wrap-tool-executors: true
+
+logging:
+  level:
+    root: WARN
+    kr.devslab.examples: INFO
+    kr.devslab.ssrfguard: INFO
