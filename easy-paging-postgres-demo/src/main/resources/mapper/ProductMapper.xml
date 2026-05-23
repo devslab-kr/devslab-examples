@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+    "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="kr.devslab.examples.easypagingpostgres.product.ProductMapper">
+
+    <!--
+        No LIMIT/OFFSET, no COUNT — same pattern as the H2 demo. PageHelper
+        rewrites the SQL underneath for PostgreSQL's dialect (LIMIT ? OFFSET ?,
+        not ROW_NUMBER() shenanigans).
+    -->
+    <select id="findAll" resultType="kr.devslab.examples.easypagingpostgres.product.Product">
+        SELECT id, name, price, category, created_at AS createdAt
+        FROM products
+        <if test="category != null">
+            WHERE category = #{category}
+        </if>
+    </select>
+
+</mapper>
