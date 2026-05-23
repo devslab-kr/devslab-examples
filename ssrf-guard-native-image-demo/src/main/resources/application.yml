@@ -1,0 +1,23 @@
+spring:
+  application:
+    name: ssrf-guard-native-image-demo
+
+ssrf:
+  guard:
+    enabled: true
+    exact-hosts:
+      - httpbin.org
+      - api.partner.com
+    block-private-networks: true
+    reject-ip-literal-hosts: true
+    reject-user-info: true
+    follow-redirects: true
+    allowed-schemes:
+      - http
+      - https
+
+logging:
+  level:
+    root: WARN
+    kr.devslab.examples: INFO
+    kr.devslab.ssrfguard: INFO

@@ -1,0 +1,34 @@
+# SSRF Guard configuration — read by ssrf-guard-httpclient5's autoconfig.
+# The same `ssrf.guard.*` keys work across every ssrf-guard module.
+
+spring:
+  application:
+    name: ssrf-guard-httpclient5-demo
+
+ssrf:
+  guard:
+    enabled: true
+
+    # Whitelist — only hosts in this list will resolve through SafeDnsResolver.
+    exact-hosts:
+      - httpbin.org
+
+    # When true, any IP that lands in a private / loopback / link-local /
+    # cloud-metadata range after DNS resolution is filtered out. The
+    # SafeDnsResolver does the filtering before SocketChannel.connect() —
+    # this is the gate that catches obfuscated IP literals like
+    # http://2130706433/ (= 127.0.0.1 decimal) and http://169.254.169.254/
+    # (AWS metadata).
+    block-private-networks: true
+
+    # When true, redirects are followed but each hop goes through the
+    # SafeRedirectStrategy: scheme check + DNS gate re-validation. Set to
+    # false to refuse all redirects.
+    follow-redirects: true
+
+    # The schemes a redirect hop may use. http and https only by default
+    # — file:// / gopher:// / ftp:// stay blocked even if a redirect
+    # target tries to use them.
+    allowed-schemes:
+      - http
+      - https
