@@ -2,7 +2,7 @@ package kr.devslab.examples.apilogmybatis.widget;
 
 import kr.devslab.apilog.dto.ApiRequest;
 import kr.devslab.apilog.util.RestApiClientUtil;
-import org.springframework.beans.factory.annotation.Value;
+import org.springframework.core.env.Environment;
 import org.springframework.http.HttpMethod;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -20,46 +20,52 @@ import org.springframework.web.bind.annotation.RestController;
  * SUCCESS, or INITIATED + ERROR) that the starter's listener persists to
  * {@code api_log} via the MyBatis mapper.
  *
- * <p>The {@code upstream-base-url} property points back at this same app
- * ({@code http://localhost:8080}) so the demo is single-process - no extra
- * service to start.
+ * <p>The upstream URL is built at request time from {@code local.server.port}
+ * (a property Spring Boot sets after the embedded server binds). That makes the
+ * self-loopback work both in {@code ./gradlew bootRun} (port 8080) and in the
+ * integration test ({@code RANDOM_PORT}) without any test-specific override.
+ * In a real app this method would point at the external service URL — the demo's
+ * only special thing is that "upstream" lives in the same JVM for convenience.
  */
 @RestController
 @RequestMapping("/client/widgets")
 public class ClientController {
 
     private final RestApiClientUtil api;
-    private final String upstreamBaseUrl;
+    private final Environment env;
 
-    public ClientController(RestApiClientUtil api,
-                            @Value("${api-log-demo.upstream-base-url}") String upstreamBaseUrl) {
+    public ClientController(RestApiClientUtil api, Environment env) {
         this.api = api;
-        this.upstreamBaseUrl = upstreamBaseUrl;
+        this.env = env;
+    }
+
+    private String upstream(String path) {
+        return "http://localhost:" + env.getProperty("local.server.port") + path;
     }
 
     @GetMapping("/{id}")
     public Widget getWidget(@PathVariable long id) {
-        return api.getSyncTyped(upstreamBaseUrl + "/upstream/widgets/" + id, Widget.class);
+        return api.getSyncTyped(upstream("/upstream/widgets/" + id), Widget.class);
     }
 
     @GetMapping("/{id}/async")
     public Widget getWidgetAsync(@PathVariable long id) {
-        return api.getAsyncTyped(upstreamBaseUrl + "/upstream/widgets/" + id, Widget.class).join();
+        return api.getAsyncTyped(upstream("/upstream/widgets/" + id), Widget.class).join();
     }
 
     @PostMapping
     public Widget createWidget(@RequestBody Widget body) {
-        return api.postSyncTyped(upstreamBaseUrl + "/upstream/widgets", body, Widget.class);
+        return api.postSyncTyped(upstream("/upstream/widgets"), body, Widget.class);
     }
 
     @PutMapping("/{id}")
     public Widget updateWidget(@PathVariable long id, @RequestBody Widget body) {
-        return api.putSyncTyped(upstreamBaseUrl + "/upstream/widgets/" + id, body, Widget.class);
+        return api.putSyncTyped(upstream("/upstream/widgets/" + id), body, Widget.class);
     }
 
     @DeleteMapping("/{id}")
     public ResponseEntity<Void> deleteWidget(@PathVariable long id) {
-        api.deleteSync(upstreamBaseUrl + "/upstream/widgets/" + id);
+        api.deleteSync(upstream("/upstream/widgets/" + id));
         return ResponseEntity.noContent().build();
     }
 
@@ -71,7 +77,7 @@ public class ClientController {
     @PostMapping("/with-request-id/{id}")
     public String getWithFixedRequestId(@PathVariable long id) {
         api.send(HttpMethod.GET, ApiRequest.builder()
-                .endpoint(upstreamBaseUrl + "/upstream/widgets/" + id)
+                .endpoint(upstream("/upstream/widgets/" + id))
                 .requestId("demo-fixed-rid")
                 .build());
         return "demo-fixed-rid";

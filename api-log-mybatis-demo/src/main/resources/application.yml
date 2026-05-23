@@ -14,9 +14,10 @@ api:
       management: BUILTIN
 
 # Self-loopback - same app responds at /upstream/widgets and consumes via /client/widgets.
-# In a real app this points at an external service.
-api-log-demo:
-  upstream-base-url: http://localhost:${server.port:8080}
+# ClientController.upstream(...) reads `local.server.port` at request time (set by Spring
+# Boot after the embedded server binds), so the same code works in bootRun (port 8080)
+# and in RANDOM_PORT tests. In a real app, replace ClientController to point at the
+# external service.
 
 mybatis:
   mapper-locations:

@@ -21,15 +21,13 @@ api:
     schema:
       management: BUILTIN      # starter creates api_log on boot
 
-# Base URL used by the auto-configured RestClient bean inside RestApiClientUtil.
-# We loop back to ourselves so the demo is self-contained — the same app exposes
-# both the "upstream" endpoint that responds, and the "client" endpoint that calls
-# the upstream and logs the call. In a real app this points at an external service.
-api-log-demo:
-  upstream-base-url: http://localhost:${server.port:8080}
-
 server:
   port: 8080
+
+# ClientController.upstream(...) builds the self-loopback URL from
+# `local.server.port` (set by Spring Boot after the embedded server binds), so
+# the demo works the same on bootRun (port 8080) and in RANDOM_PORT tests. In
+# a real app, replace ClientController to point at your external service.
 
 logging:
   level:

@@ -1,6 +1,6 @@
 package kr.devslab.examples.apilogr2dbc.widget;
 
-import org.springframework.beans.factory.annotation.Value;
+import org.springframework.core.env.Environment;
 import org.springframework.http.HttpMethod;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -37,32 +37,37 @@ import reactor.core.publisher.Mono;
 public class ClientController {
 
     private final ReactiveApiClientUtil api;
-    private final String upstreamBaseUrl;
+    private final Environment env;
 
-    public ClientController(ReactiveApiClientUtil api,
-                            @Value("${api-log-demo.upstream-base-url}") String upstreamBaseUrl) {
+    public ClientController(ReactiveApiClientUtil api, Environment env) {
         this.api = api;
-        this.upstreamBaseUrl = upstreamBaseUrl;
+        this.env = env;
+    }
+
+    private String upstream(String path) {
+        // local.server.port is set by Spring Boot after the embedded server binds — works
+        // for both bootRun (port 8080) and RANDOM_PORT integration tests without an override.
+        return "http://localhost:" + env.getProperty("local.server.port") + path;
     }
 
     @GetMapping("/{id}")
     public Mono<Widget> get(@PathVariable Long id) {
-        return api.getTyped(upstreamBaseUrl + "/upstream/widgets/" + id, Widget.class);
+        return api.getTyped(upstream("/upstream/widgets/" + id), Widget.class);
     }
 
     @PostMapping
     public Mono<Widget> create(@RequestBody Widget body) {
-        return api.postTyped(upstreamBaseUrl + "/upstream/widgets", body, Widget.class);
+        return api.postTyped(upstream("/upstream/widgets"), body, Widget.class);
     }
 
     @PutMapping("/{id}")
     public Mono<Widget> update(@PathVariable Long id, @RequestBody Widget body) {
-        return api.putTyped(upstreamBaseUrl + "/upstream/widgets/" + id, body, Widget.class);
+        return api.putTyped(upstream("/upstream/widgets/" + id), body, Widget.class);
     }
 
     @DeleteMapping("/{id}")
     public Mono<ResponseEntity<Void>> delete(@PathVariable Long id) {
-        return api.delete(upstreamBaseUrl + "/upstream/widgets/" + id)
+        return api.delete(upstream("/upstream/widgets/" + id))
             .then(Mono.just(ResponseEntity.noContent().build()));
     }
 
@@ -75,7 +80,7 @@ public class ClientController {
     @PostMapping("/with-request-id/{id}")
     public Mono<ApiResponse> withFixedRequestId(@PathVariable Long id) {
         ApiRequest request = ApiRequest.builder()
-            .endpoint(upstreamBaseUrl + "/upstream/widgets/" + id)
+            .endpoint(upstream("/upstream/widgets/" + id))
             .requestId("demo-fixed-rid")
             .build();
         return api.send(HttpMethod.GET, request);
