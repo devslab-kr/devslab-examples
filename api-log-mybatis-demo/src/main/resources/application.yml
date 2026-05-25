@@ -1,0 +1,35 @@
+spring:
+  application:
+    name: api-log-mybatis-demo
+  datasource:
+    url: jdbc:postgresql://localhost:5432/apilog
+    username: apilog
+    password: apilog
+    driver-class-name: org.postgresql.Driver
+
+api:
+  log:
+    enabled: true
+    schema:
+      management: BUILTIN
+
+# Self-loopback - same app responds at /upstream/widgets and consumes via /client/widgets.
+# ClientController.upstream(...) reads `local.server.port` at request time (set by Spring
+# Boot after the embedded server binds), so the same code works in bootRun (port 8080)
+# and in RANDOM_PORT tests. In a real app, replace ClientController to point at the
+# external service.
+
+mybatis:
+  mapper-locations:
+    - classpath:mapper/**/*.xml
+  configuration:
+    map-underscore-to-camel-case: true
+
+server:
+  port: 8080
+
+logging:
+  level:
+    root: WARN
+    kr.devslab.examples: INFO
+    kr.devslab.apilog: INFO

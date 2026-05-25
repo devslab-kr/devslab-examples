@@ -1,0 +1,36 @@
+spring:
+  application:
+    name: api-log-jpa-demo
+
+  datasource:
+    url: jdbc:postgresql://localhost:5432/apilog
+    username: apilog
+    password: apilog
+    driver-class-name: org.postgresql.Driver
+
+  jpa:
+    hibernate:
+      ddl-auto: none           # api-log starter manages api_log schema; we have no other entities
+    properties:
+      hibernate:
+        format_sql: false
+
+api:
+  log:
+    enabled: true
+    schema:
+      management: BUILTIN      # starter creates api_log on boot
+
+server:
+  port: 8080
+
+# ClientController.upstream(...) builds the self-loopback URL from
+# `local.server.port` (set by Spring Boot after the embedded server binds), so
+# the demo works the same on bootRun (port 8080) and in RANDOM_PORT tests. In
+# a real app, replace ClientController to point at your external service.
+
+logging:
+  level:
+    root: WARN
+    kr.devslab.examples: INFO
+    kr.devslab.apilog: INFO
