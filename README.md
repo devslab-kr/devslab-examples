@@ -55,6 +55,14 @@ Async API-call logging into PostgreSQL JSONB via the [api-log](https://github.co
 | [`api-log-mybatis-demo`](api-log-mybatis-demo/) | **MyBatis backend** — Spring MVC + `RestApiClientUtil` + `MybatisApiLogWriter`. Uses the bundled `ApiLogMapper` for by-request lookup, plus a custom `ApiLogQueryMapper` (xml) for `recent` / `by-event` queries. For teams already on MyBatis who don't want JPA. | [![Maven Central](https://img.shields.io/maven-central/v/kr.devslab/api-log-mybatis)](https://central.sonatype.com/artifact/kr.devslab/api-log-mybatis) |
 | [`api-log-r2dbc-demo`](api-log-r2dbc-demo/) | **R2DBC backend (reactive)** — WebFlux + `ReactiveApiClientUtil` (`Mono`-based) + `R2dbcApiLogWriter`. Reader uses `DatabaseClient` for streaming `Flux<ApiLogView>`. Entire HTTP path is non-blocking; api-log writes also non-blocking. For WebFlux apps that have no JDBC anywhere on the request path. | [![Maven Central](https://img.shields.io/maven-central/v/kr.devslab/api-log-r2dbc)](https://central.sonatype.com/artifact/kr.devslab/api-log-r2dbc) |
 
+### devslab-kit
+
+Spring Boot 4 platform starter — authentication, RBAC + groups + ABAC, multi-tenancy, dynamic menus, audit logging, and an admin REST API, all from auto-configuration. Full docs at [devslab-kit.devslab.kr](https://devslab-kit.devslab.kr).
+
+| Demo | Showcases | Maven Central |
+| --- | --- | --- |
+| [`devslab-kit-demo`](devslab-kit-demo/) | A plain consumer app with **no platform code of its own** — adding the starter brings up auth, RBAC + ABAC, multi-tenancy, dynamic menus, audit, the first-admin bootstrap, and the admin REST API. PostgreSQL + Redis (distributed cache); Docker Compose for `bootRun`, Testcontainers + `@ServiceConnection` for tests. | [![Maven Central](https://img.shields.io/maven-central/v/kr.devslab/devslab-kit-spring-boot-starter)](https://central.sonatype.com/artifact/kr.devslab/devslab-kit-spring-boot-starter) |
+
 ## Conventions
 
 - Each demo is a **standalone Gradle project** — its own `settings.gradle.kts`, `build.gradle.kts`, and `gradlew`. Demos do not share a root build, so their dependency versions and JDK targets can drift independently.

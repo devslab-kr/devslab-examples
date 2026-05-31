@@ -55,6 +55,14 @@ Spring Boot 3.3–3.5 사용 중인 앱용. 스타터의 [`3.x` 브랜치](https
 | [`api-log-mybatis-demo`](api-log-mybatis-demo/) | **MyBatis 백엔드** — Spring MVC + `RestApiClientUtil` + `MybatisApiLogWriter`. 번들 `ApiLogMapper`는 request_id 조회용, `recent` / `by-event` 쿼리는 데모가 커스텀 `ApiLogQueryMapper` (xml) 추가. 이미 MyBatis 쓰고 JPA 안 원하는 팀용. | [![Maven Central](https://img.shields.io/maven-central/v/kr.devslab/api-log-mybatis)](https://central.sonatype.com/artifact/kr.devslab/api-log-mybatis) |
 | [`api-log-r2dbc-demo`](api-log-r2dbc-demo/) | **R2DBC 백엔드 (리액티브)** — WebFlux + `ReactiveApiClientUtil` (`Mono` 기반) + `R2dbcApiLogWriter`. 리더는 `DatabaseClient`로 `Flux<ApiLogView>` 스트리밍. HTTP 경로 전체 논블로킹; api-log 쓰기도 논블로킹. 요청 경로에 JDBC가 전혀 없는 WebFlux 앱용. | [![Maven Central](https://img.shields.io/maven-central/v/kr.devslab/api-log-r2dbc)](https://central.sonatype.com/artifact/kr.devslab/api-log-r2dbc) |
 
+### devslab-kit
+
+Spring Boot 4 플랫폼 스타터 — 인증, RBAC + 그룹 + ABAC, 멀티테넌시, 동적 메뉴, 감사 로깅, 관리자 REST API를 모두 자동 구성으로. 전체 문서: [devslab-kit.devslab.kr](https://devslab-kit.devslab.kr).
+
+| 데모 | 보여주는 것 | Maven Central |
+| --- | --- | --- |
+| [`devslab-kit-demo`](devslab-kit-demo/) | **플랫폼 코드가 전혀 없는** 소비자 앱 — 스타터만 추가하면 인증, RBAC + ABAC, 멀티테넌시, 동적 메뉴, 감사, 최초 관리자 부트스트랩, 관리자 REST API가 올라옴. PostgreSQL + Redis(분산 캐시); `bootRun`은 Docker Compose, 테스트는 Testcontainers + `@ServiceConnection`. | [![Maven Central](https://img.shields.io/maven-central/v/kr.devslab/devslab-kit-spring-boot-starter)](https://central.sonatype.com/artifact/kr.devslab/devslab-kit-spring-boot-starter) |
+
 ## 컨벤션
 
 - 각 데모는 **독립 Gradle 프로젝트** — 자체 `settings.gradle.kts`, `build.gradle.kts`, `gradlew`를 가짐. 루트 빌드를 공유하지 않으므로 의존성 버전이나 JDK 타겟이 독립적으로 변할 수 있음.

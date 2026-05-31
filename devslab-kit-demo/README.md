@@ -9,6 +9,14 @@ a database gives you authentication, RBAC + groups + ABAC, multi-tenancy, dynami
 menus, audit logging, a first-admin bootstrap, and an admin REST API — all from
 auto-configuration.
 
+> **One required step for 0.1.0:** because this app lives in its own package
+> (`kr.devslab.example.*`), it widens scanning to the kit's packages so the kit's
+> JPA entities and repositories are registered — see
+> [`DevslabKitDemoApplication`](src/main/java/kr/devslab/example/devslabkit/DevslabKitDemoApplication.java)
+> (`scanBasePackages` + `@AutoConfigurationPackage` + `@EnableJpaRepositories`
+> listing both your package and `kr.devslab.kit`). Without it the context fails
+> with `Not a managed type: …PlatformUserAccountEntity`.
+
 ## Prerequisites
 
 - Java 21+
