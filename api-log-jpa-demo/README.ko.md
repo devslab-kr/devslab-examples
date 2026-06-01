@@ -16,6 +16,28 @@
 - **Docker** (Docker Desktop 또는 호환 런타임)
 - 그 외 없음. 로컬 Postgres 설치 불필요. psql 클라이언트 불필요.
 
+## 이 데모만 받기
+
+각 데모는 독립 Gradle 프로젝트라, `devslab-examples` 저장소 전체를 clone하지 않고
+이 폴더만 받을 수 있습니다.
+
+**git 사용 (sparse checkout):**
+
+```bash
+git clone --filter=blob:none --sparse https://github.com/devslab-kr/devslab-examples.git
+cd devslab-examples
+git sparse-checkout set api-log-jpa-demo
+cd api-log-jpa-demo
+```
+
+**git 없이 (폴더만):**
+
+```bash
+curl -sL https://github.com/devslab-kr/devslab-examples/archive/refs/heads/main.tar.gz \
+  | tar -xz --strip-components=2 devslab-examples-main/api-log-jpa-demo
+cd api-log-jpa-demo
+```
+
 ## 실행
 
 ```bash

@@ -18,6 +18,28 @@
 - JDK 21+
 - **Docker** (Docker Desktop 또는 호환 런타임)
 
+## 이 데모만 받기
+
+각 데모는 독립 Gradle 프로젝트라, `devslab-examples` 저장소 전체를 clone하지 않고
+이 폴더만 받을 수 있습니다.
+
+**git 사용 (sparse checkout):**
+
+```bash
+git clone --filter=blob:none --sparse https://github.com/devslab-kr/devslab-examples.git
+cd devslab-examples
+git sparse-checkout set api-log-mybatis-demo
+cd api-log-mybatis-demo
+```
+
+**git 없이 (폴더만):**
+
+```bash
+curl -sL https://github.com/devslab-kr/devslab-examples/archive/refs/heads/main.tar.gz \
+  | tar -xz --strip-components=2 devslab-examples-main/api-log-mybatis-demo
+cd api-log-mybatis-demo
+```
+
 ## 실행
 
 ```bash

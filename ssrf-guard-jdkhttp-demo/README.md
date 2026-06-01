@@ -6,6 +6,28 @@ Runnable example for [`ssrf-guard-jdkhttp`](https://github.com/devslab-kr/ssrf-g
 
 **No Spring needed for the library itself.** This demo uses Spring Boot only to expose a REST endpoint for curl. The actual SSRF Guard wiring is three lines in `SsrfGuardJdkHttpDemoApplication.java`.
 
+## Get just this demo
+
+Each demo is a standalone Gradle project, so you can grab this one folder without
+cloning the whole `devslab-examples` repo.
+
+**With git (sparse checkout):**
+
+```bash
+git clone --filter=blob:none --sparse https://github.com/devslab-kr/devslab-examples.git
+cd devslab-examples
+git sparse-checkout set ssrf-guard-jdkhttp-demo
+cd ssrf-guard-jdkhttp-demo
+```
+
+**Without git (folder only):**
+
+```bash
+curl -sL https://github.com/devslab-kr/devslab-examples/archive/refs/heads/main.tar.gz \
+  | tar -xz --strip-components=2 devslab-examples-main/ssrf-guard-jdkhttp-demo
+cd ssrf-guard-jdkhttp-demo
+```
+
 ## Run
 
 ```bash

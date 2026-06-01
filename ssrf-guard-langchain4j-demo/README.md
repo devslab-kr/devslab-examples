@@ -26,6 +26,28 @@ That's a one-line SSRF if the URL is attacker-controlled. The attacker doesn't e
 - JDK 21+
 - **No LLM API key required** — the demo's `FakeLlmService` stands in for a real LLM so the demo runs offline. Swap it for a real `AiServices`-built assistant (`langchain4j-open-ai`, `langchain4j-anthropic`, etc.) and the security story stays identical.
 
+## Get just this demo
+
+Each demo is a standalone Gradle project, so you can grab this one folder without
+cloning the whole `devslab-examples` repo.
+
+**With git (sparse checkout):**
+
+```bash
+git clone --filter=blob:none --sparse https://github.com/devslab-kr/devslab-examples.git
+cd devslab-examples
+git sparse-checkout set ssrf-guard-langchain4j-demo
+cd ssrf-guard-langchain4j-demo
+```
+
+**Without git (folder only):**
+
+```bash
+curl -sL https://github.com/devslab-kr/devslab-examples/archive/refs/heads/main.tar.gz \
+  | tar -xz --strip-components=2 devslab-examples-main/ssrf-guard-langchain4j-demo
+cd ssrf-guard-langchain4j-demo
+```
+
 ## Run
 
 ```bash

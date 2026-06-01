@@ -8,6 +8,28 @@ Two declarative `@FeignClient` interfaces share one `UrlPolicy`:
 - `HttpBinClient` — points at `https://httpbin.org` (whitelisted) — calls succeed.
 - `EvilClient` — points at `https://evil.com` (not whitelisted) — calls blocked at the Feign `RequestInterceptor` before any HTTP traffic leaves the JVM.
 
+## Get just this demo
+
+Each demo is a standalone Gradle project, so you can grab this one folder without
+cloning the whole `devslab-examples` repo.
+
+**With git (sparse checkout):**
+
+```bash
+git clone --filter=blob:none --sparse https://github.com/devslab-kr/devslab-examples.git
+cd devslab-examples
+git sparse-checkout set ssrf-guard-feign-demo
+cd ssrf-guard-feign-demo
+```
+
+**Without git (folder only):**
+
+```bash
+curl -sL https://github.com/devslab-kr/devslab-examples/archive/refs/heads/main.tar.gz \
+  | tar -xz --strip-components=2 devslab-examples-main/ssrf-guard-feign-demo
+cd ssrf-guard-feign-demo
+```
+
 ## Run
 
 ```bash

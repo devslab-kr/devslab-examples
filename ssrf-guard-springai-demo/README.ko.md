@@ -21,6 +21,28 @@ URL이 공격자 컨트롤이면 **SSRF 한 줄**입니다. 공격자는 URL을 
 - JDK 21+
 - **LLM API 키 필요 없음** — 데모의 `FakeLlmService`가 실제 LLM 역할을 대신해서 오프라인 실행. `ChatClient` (Spring AI 1.0)로 바꿔도 보안 스토리는 동일.
 
+## 이 데모만 받기
+
+각 데모는 독립 Gradle 프로젝트라, `devslab-examples` 저장소 전체를 clone하지 않고
+이 폴더만 받을 수 있습니다.
+
+**git 사용 (sparse checkout):**
+
+```bash
+git clone --filter=blob:none --sparse https://github.com/devslab-kr/devslab-examples.git
+cd devslab-examples
+git sparse-checkout set ssrf-guard-springai-demo
+cd ssrf-guard-springai-demo
+```
+
+**git 없이 (폴더만):**
+
+```bash
+curl -sL https://github.com/devslab-kr/devslab-examples/archive/refs/heads/main.tar.gz \
+  | tar -xz --strip-components=2 devslab-examples-main/ssrf-guard-springai-demo
+cd ssrf-guard-springai-demo
+```
+
 ## 실행
 
 ```bash

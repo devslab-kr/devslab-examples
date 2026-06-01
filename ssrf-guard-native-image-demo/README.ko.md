@@ -29,6 +29,28 @@ ssrf-guard 3.1.0은 각 모듈에서 `META-INF/spring/aot.factories`로 `Runtime
 
 `GRAALVM_HOME` (또는 JDK가 GraalVM 디스트리이면 `JAVA_HOME`) 설정. `native-image --version`로 확인.
 
+## 이 데모만 받기
+
+각 데모는 독립 Gradle 프로젝트라, `devslab-examples` 저장소 전체를 clone하지 않고
+이 폴더만 받을 수 있습니다.
+
+**git 사용 (sparse checkout):**
+
+```bash
+git clone --filter=blob:none --sparse https://github.com/devslab-kr/devslab-examples.git
+cd devslab-examples
+git sparse-checkout set ssrf-guard-native-image-demo
+cd ssrf-guard-native-image-demo
+```
+
+**git 없이 (폴더만):**
+
+```bash
+curl -sL https://github.com/devslab-kr/devslab-examples/archive/refs/heads/main.tar.gz \
+  | tar -xz --strip-components=2 devslab-examples-main/ssrf-guard-native-image-demo
+cd ssrf-guard-native-image-demo
+```
+
 ## 일단 JVM에서 실행
 
 ```bash

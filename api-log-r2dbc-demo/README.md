@@ -20,6 +20,28 @@ Production-flavoured runnable example for [`api-log`](https://github.com/devslab
 - **Docker** (Docker Desktop or any Docker-compatible runtime)
 - That's it. No local Postgres install. No psql client needed.
 
+## Get just this demo
+
+Each demo is a standalone Gradle project, so you can grab this one folder without
+cloning the whole `devslab-examples` repo.
+
+**With git (sparse checkout):**
+
+```bash
+git clone --filter=blob:none --sparse https://github.com/devslab-kr/devslab-examples.git
+cd devslab-examples
+git sparse-checkout set api-log-r2dbc-demo
+cd api-log-r2dbc-demo
+```
+
+**Without git (folder only):**
+
+```bash
+curl -sL https://github.com/devslab-kr/devslab-examples/archive/refs/heads/main.tar.gz \
+  | tar -xz --strip-components=2 devslab-examples-main/api-log-r2dbc-demo
+cd api-log-r2dbc-demo
+```
+
 ## Quickstart
 
 ```bash

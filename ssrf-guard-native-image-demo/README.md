@@ -29,6 +29,28 @@ Without those hints, a native binary would fail at runtime with `MissingReflecti
 
 Set `GRAALVM_HOME` (or just `JAVA_HOME` if your JDK is a GraalVM distribution). Verify with `native-image --version`.
 
+## Get just this demo
+
+Each demo is a standalone Gradle project, so you can grab this one folder without
+cloning the whole `devslab-examples` repo.
+
+**With git (sparse checkout):**
+
+```bash
+git clone --filter=blob:none --sparse https://github.com/devslab-kr/devslab-examples.git
+cd devslab-examples
+git sparse-checkout set ssrf-guard-native-image-demo
+cd ssrf-guard-native-image-demo
+```
+
+**Without git (folder only):**
+
+```bash
+curl -sL https://github.com/devslab-kr/devslab-examples/archive/refs/heads/main.tar.gz \
+  | tar -xz --strip-components=2 devslab-examples-main/ssrf-guard-native-image-demo
+cd ssrf-guard-native-image-demo
+```
+
 ## Run it on the JVM first
 
 ```bash
