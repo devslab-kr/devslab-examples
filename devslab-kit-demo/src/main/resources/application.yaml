@@ -1,0 +1,53 @@
+spring:
+  application:
+    name: devslab-kit-demo
+
+  # compose.yaml (Postgres + Redis) is started automatically on `bootRun` by
+  # spring-boot-docker-compose; these defaults point at it.
+  datasource:
+    url: ${DEVSLAB_DATASOURCE_URL:jdbc:postgresql://localhost:5432/demo}
+    username: ${DEVSLAB_DATASOURCE_USERNAME:demo}
+    password: ${DEVSLAB_DATASOURCE_PASSWORD:demo}
+  data:
+    redis:
+      host: ${DEVSLAB_REDIS_HOST:localhost}
+      port: ${DEVSLAB_REDIS_PORT:6379}
+
+  jpa:
+    open-in-view: false
+
+devslab:
+  kit:
+    # Single-tenant: the context still always resolves a tenant (the `default`
+    # one), so the code path is identical to a multi-tenant deployment.
+    tenant:
+      mode: single
+      resolver: fixed
+      default-tenant-id: default
+
+    identity:
+      jwt:
+        # 32+ byte key for HS256. Fine for a local demo; inject a real secret in
+        # production via DEVSLAB_JWT_SECRET.
+        secret: ${DEVSLAB_JWT_SECRET:demo-only-32byte-jwt-signing-key!!}
+        ttl: PT8H
+
+    # Distributed cache backed by the compose Redis. Flip to `in-memory` to drop
+    # the Redis dependency, or `none` to disable caching entirely.
+    cache:
+      type: ${DEVSLAB_CACHE_TYPE:redis}
+      ttl: PT10M
+
+    # First-admin bootstrap: provisions the `default` tenant, a PLATFORM_ADMIN
+    # role with the admin.* permissions, and an admin/admin user on first boot —
+    # so you can log in to the admin API immediately. The forced password change
+    # is off here for demo convenience; do NOT ship this shape to production.
+    bootstrap:
+      enabled: true
+      admin-login-id: admin
+      admin-password: admin
+      must-change-password: false
+
+logging:
+  level:
+    kr.devslab: DEBUG
