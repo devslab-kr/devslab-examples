@@ -22,8 +22,10 @@ repositories {
 }
 
 dependencies {
-    // The devslab-kit starter pulls in the whole platform's auto-configuration.
-    implementation("kr.devslab:devslab-kit-spring-boot-starter:0.1.0")
+    // The devslab-kit starter pulls in the whole platform's auto-configuration —
+    // including Swagger UI (springdoc is bundled from 0.2.1), so /swagger-ui and
+    // /v3/api-docs come up with no extra dependency.
+    implementation("kr.devslab:devslab-kit-spring-boot-starter:0.3.0")
 
     // devslab-kit is deliberately unopinionated about which Spring starters you
     // bring — a consumer wires the runtime it actually wants. This is the set the

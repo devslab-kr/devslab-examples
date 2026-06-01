@@ -63,6 +63,12 @@ curl -s localhost:8080/admin/api/v1/auth/login \
 [관리자 콘솔](https://github.com/devslab-kr/devslab-kit-admin-ui)을
 `http://localhost:8080`에 연결하면 같은 API 위에서 UI를 쓸 수 있습니다.
 
+API 자체를 둘러보려면 — 스타터가 Swagger UI를 포함하므로(devslab-kit `0.2.1`+)
+추가 설정 없이 바로 뜹니다:
+
+- Swagger UI: <http://localhost:8080/swagger-ui.html>
+- OpenAPI JSON: <http://localhost:8080/v3/api-docs>
+
 ## 테스트 실행 (Docker만 필요)
 
 ```bash

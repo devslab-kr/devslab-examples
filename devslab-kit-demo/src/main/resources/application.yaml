@@ -5,13 +5,13 @@ spring:
   # compose.yaml (Postgres + Redis) is started automatically on `bootRun` by
   # spring-boot-docker-compose; these defaults point at it.
   datasource:
-    url: ${DEVSLAB_DATASOURCE_URL:jdbc:postgresql://localhost:5432/demo}
+    url: ${DEVSLAB_DATASOURCE_URL:jdbc:postgresql://localhost:15432/demo}
     username: ${DEVSLAB_DATASOURCE_USERNAME:demo}
     password: ${DEVSLAB_DATASOURCE_PASSWORD:demo}
   data:
     redis:
       host: ${DEVSLAB_REDIS_HOST:localhost}
-      port: ${DEVSLAB_REDIS_PORT:6379}
+      port: ${DEVSLAB_REDIS_PORT:16379}
 
   jpa:
     open-in-view: false
