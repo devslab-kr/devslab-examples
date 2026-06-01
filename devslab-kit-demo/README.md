@@ -64,6 +64,12 @@ curl -s localhost:8080/admin/api/v1/auth/login \
 Point the [admin console](https://github.com/devslab-kr/devslab-kit-admin-ui) at
 `http://localhost:8080` for a UI over the same API.
 
+Or browse the API itself — the starter bundles Swagger UI (devslab-kit `0.2.1`+),
+so it's live with no extra setup:
+
+- Swagger UI: <http://localhost:8080/swagger-ui.html>
+- OpenAPI JSON: <http://localhost:8080/v3/api-docs>
+
 ## Run the tests (Docker only)
 
 ```bash
