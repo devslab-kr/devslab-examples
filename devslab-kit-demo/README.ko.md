@@ -8,12 +8,12 @@
 하면 인증, RBAC + 그룹 + ABAC, 멀티테넌시, 동적 메뉴, 감사 로깅, 최초 관리자 부트스트랩,
 관리자 REST API가 모두 자동 구성으로 제공됩니다.
 
-> **0.1.0에서 필요한 한 단계:** 이 앱은 자체 패키지(`kr.devslab.example.*`)에 있으므로,
-> kit의 JPA 엔티티와 리포지토리가 등록되도록 스캔 범위를 kit 패키지까지 넓힙니다 —
+> **설정 불필요.** 앱 자체 패키지(`kr.devslab.example.*`)에 평범한
+> `@SpringBootApplication` 하나면 충분합니다 —
 > [`DevslabKitDemoApplication`](src/main/java/kr/devslab/example/devslabkit/DevslabKitDemoApplication.java)
-> 참고 (`scanBasePackages` + `@AutoConfigurationPackage` + `@EnableJpaRepositories`에
-> 본인 패키지와 `kr.devslab.kit`을 함께 명시). 없으면 컨텍스트가
-> `Not a managed type: …PlatformUserAccountEntity`로 실패합니다.
+> 참고. `scanBasePackages`·`@EntityScan`·`@EnableJpaRepositories` 모두 불필요:
+> 스타터의 자동 구성이 kit의 JPA 엔티티·리포지토리와 관리자 REST API를 직접
+> 등록하며, 소비자가 스캔 범위를 넓히는 게 아니라 스타터가 알아서 넓힙니다.
 
 ## 요구 사항
 

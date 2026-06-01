@@ -46,8 +46,12 @@ dependencies {
 
     testImplementation("org.springframework.boot:spring-boot-starter-test")
     testImplementation("org.springframework.boot:spring-boot-testcontainers")
-    testImplementation("org.testcontainers:junit-jupiter")
-    testImplementation("org.testcontainers:postgresql")
+    // Spring Boot 4 manages Testcontainers 2.x, whose artifacts were renamed to
+    // the `testcontainers-*` prefix (`testcontainers-junit-jupiter`,
+    // `testcontainers-postgresql`); the old 1.x IDs (`junit-jupiter`, `postgresql`)
+    // are absent from the SB4 BOM, so leaving them unversioned fails to resolve.
+    testImplementation("org.testcontainers:testcontainers-junit-jupiter")
+    testImplementation("org.testcontainers:testcontainers-postgresql")
     testRuntimeOnly("org.junit.platform:junit-platform-launcher")
 }
 
