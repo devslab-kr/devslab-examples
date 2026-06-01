@@ -17,6 +17,28 @@
 - JDK 21+
 - 인터넷 접근 가능한 화이트리스트 호스트 (`httpbin.org` 기본 — 허용 경로가 실제로 네트워크에 닿는 것을 보여주기 위함)
 
+## 이 데모만 받기
+
+각 데모는 독립 Gradle 프로젝트라, `devslab-examples` 저장소 전체를 clone하지 않고
+이 폴더만 받을 수 있습니다.
+
+**git 사용 (sparse checkout):**
+
+```bash
+git clone --filter=blob:none --sparse https://github.com/devslab-kr/devslab-examples.git
+cd devslab-examples
+git sparse-checkout set ssrf-guard-demo
+cd ssrf-guard-demo
+```
+
+**git 없이 (폴더만):**
+
+```bash
+curl -sL https://github.com/devslab-kr/devslab-examples/archive/refs/heads/main.tar.gz \
+  | tar -xz --strip-components=2 devslab-examples-main/ssrf-guard-demo
+cd ssrf-guard-demo
+```
+
 ## 실행
 
 ```bash

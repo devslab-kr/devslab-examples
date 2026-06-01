@@ -13,6 +13,28 @@ This demo wires the starter into a minimal Spring Boot app with an in-memory H2 
 - JDK 21+
 - Nothing else. H2 runs in-memory, dependencies download on first build.
 
+## Get just this demo
+
+Each demo is a standalone Gradle project, so you can grab this one folder without
+cloning the whole `devslab-examples` repo.
+
+**With git (sparse checkout):**
+
+```bash
+git clone --filter=blob:none --sparse https://github.com/devslab-kr/devslab-examples.git
+cd devslab-examples
+git sparse-checkout set easy-paging-sb4-demo
+cd easy-paging-sb4-demo
+```
+
+**Without git (folder only):**
+
+```bash
+curl -sL https://github.com/devslab-kr/devslab-examples/archive/refs/heads/main.tar.gz \
+  | tar -xz --strip-components=2 devslab-examples-main/easy-paging-sb4-demo
+cd easy-paging-sb4-demo
+```
+
 ## Run
 
 ```bash

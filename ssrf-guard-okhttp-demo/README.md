@@ -6,6 +6,28 @@ Runnable example for [`ssrf-guard-okhttp`](https://github.com/devslab-kr/ssrf-gu
 
 **No Spring needed for the library itself.** The demo wraps Spring Boot around the wiring to give a curl-friendly endpoint, but the actual integration is three lines on `OkHttpClient.Builder`.
 
+## Get just this demo
+
+Each demo is a standalone Gradle project, so you can grab this one folder without
+cloning the whole `devslab-examples` repo.
+
+**With git (sparse checkout):**
+
+```bash
+git clone --filter=blob:none --sparse https://github.com/devslab-kr/devslab-examples.git
+cd devslab-examples
+git sparse-checkout set ssrf-guard-okhttp-demo
+cd ssrf-guard-okhttp-demo
+```
+
+**Without git (folder only):**
+
+```bash
+curl -sL https://github.com/devslab-kr/devslab-examples/archive/refs/heads/main.tar.gz \
+  | tar -xz --strip-components=2 devslab-examples-main/ssrf-guard-okhttp-demo
+cd ssrf-guard-okhttp-demo
+```
+
 ## Run
 
 ```bash

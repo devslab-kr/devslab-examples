@@ -8,6 +8,28 @@
 - `HttpBinClient` — `https://httpbin.org` 가리킴 (화이트리스트) — 호출 성공
 - `EvilClient` — `https://evil.com` 가리킴 (화이트리스트 밖) — Feign `RequestInterceptor`에서 차단됨, HTTP 트래픽이 JVM을 떠나지 않음
 
+## 이 데모만 받기
+
+각 데모는 독립 Gradle 프로젝트라, `devslab-examples` 저장소 전체를 clone하지 않고
+이 폴더만 받을 수 있습니다.
+
+**git 사용 (sparse checkout):**
+
+```bash
+git clone --filter=blob:none --sparse https://github.com/devslab-kr/devslab-examples.git
+cd devslab-examples
+git sparse-checkout set ssrf-guard-feign-demo
+cd ssrf-guard-feign-demo
+```
+
+**git 없이 (폴더만):**
+
+```bash
+curl -sL https://github.com/devslab-kr/devslab-examples/archive/refs/heads/main.tar.gz \
+  | tar -xz --strip-components=2 devslab-examples-main/ssrf-guard-feign-demo
+cd ssrf-guard-feign-demo
+```
+
 ## 실행
 
 ```bash

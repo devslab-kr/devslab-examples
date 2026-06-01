@@ -17,6 +17,28 @@ Plus a `/attacks` endpoint that lists every SSRF bypass pattern the guard catche
 - JDK 21+
 - An internet-reachable host that's whitelisted (`httpbin.org` by default — used to show the allowed path actually reaches the network).
 
+## Get just this demo
+
+Each demo is a standalone Gradle project, so you can grab this one folder without
+cloning the whole `devslab-examples` repo.
+
+**With git (sparse checkout):**
+
+```bash
+git clone --filter=blob:none --sparse https://github.com/devslab-kr/devslab-examples.git
+cd devslab-examples
+git sparse-checkout set ssrf-guard-demo
+cd ssrf-guard-demo
+```
+
+**Without git (folder only):**
+
+```bash
+curl -sL https://github.com/devslab-kr/devslab-examples/archive/refs/heads/main.tar.gz \
+  | tar -xz --strip-components=2 devslab-examples-main/ssrf-guard-demo
+cd ssrf-guard-demo
+```
+
 ## Run
 
 ```bash

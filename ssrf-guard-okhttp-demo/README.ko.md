@@ -6,6 +6,28 @@
 
 **라이브러리 자체엔 Spring 필요 없음.** 데모가 Spring Boot로 감싸서 curl 친화적 엔드포인트를 제공하지만, 실제 통합은 `OkHttpClient.Builder` 3줄.
 
+## 이 데모만 받기
+
+각 데모는 독립 Gradle 프로젝트라, `devslab-examples` 저장소 전체를 clone하지 않고
+이 폴더만 받을 수 있습니다.
+
+**git 사용 (sparse checkout):**
+
+```bash
+git clone --filter=blob:none --sparse https://github.com/devslab-kr/devslab-examples.git
+cd devslab-examples
+git sparse-checkout set ssrf-guard-okhttp-demo
+cd ssrf-guard-okhttp-demo
+```
+
+**git 없이 (폴더만):**
+
+```bash
+curl -sL https://github.com/devslab-kr/devslab-examples/archive/refs/heads/main.tar.gz \
+  | tar -xz --strip-components=2 devslab-examples-main/ssrf-guard-okhttp-demo
+cd ssrf-guard-okhttp-demo
+```
+
 ## 실행
 
 ```bash

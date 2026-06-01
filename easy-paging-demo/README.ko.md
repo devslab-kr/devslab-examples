@@ -11,6 +11,28 @@
 - JDK 21+
 - 그 외 없음. H2는 인메모리, 의존성은 최초 빌드 시 다운로드됨.
 
+## 이 데모만 받기
+
+각 데모는 독립 Gradle 프로젝트라, `devslab-examples` 저장소 전체를 clone하지 않고
+이 폴더만 받을 수 있습니다.
+
+**git 사용 (sparse checkout):**
+
+```bash
+git clone --filter=blob:none --sparse https://github.com/devslab-kr/devslab-examples.git
+cd devslab-examples
+git sparse-checkout set easy-paging-demo
+cd easy-paging-demo
+```
+
+**git 없이 (폴더만):**
+
+```bash
+curl -sL https://github.com/devslab-kr/devslab-examples/archive/refs/heads/main.tar.gz \
+  | tar -xz --strip-components=2 devslab-examples-main/easy-paging-demo
+cd easy-paging-demo
+```
+
 ## 실행
 
 ```bash

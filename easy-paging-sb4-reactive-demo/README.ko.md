@@ -14,6 +14,28 @@ MVC + MyBatis 데모들 (`easy-paging-demo`, `easy-paging-postgres-demo`)은 AOP
 - **Docker** (`bootRun`과 `./gradlew test` 둘 다)
 - 로컬 Postgres 설치 불필요.
 
+## 이 데모만 받기
+
+각 데모는 독립 Gradle 프로젝트라, `devslab-examples` 저장소 전체를 clone하지 않고
+이 폴더만 받을 수 있습니다.
+
+**git 사용 (sparse checkout):**
+
+```bash
+git clone --filter=blob:none --sparse https://github.com/devslab-kr/devslab-examples.git
+cd devslab-examples
+git sparse-checkout set easy-paging-sb4-reactive-demo
+cd easy-paging-sb4-reactive-demo
+```
+
+**git 없이 (폴더만):**
+
+```bash
+curl -sL https://github.com/devslab-kr/devslab-examples/archive/refs/heads/main.tar.gz \
+  | tar -xz --strip-components=2 devslab-examples-main/easy-paging-sb4-reactive-demo
+cd easy-paging-sb4-reactive-demo
+```
+
 ## 실행
 
 ```bash

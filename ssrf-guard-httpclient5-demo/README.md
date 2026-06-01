@@ -17,6 +17,28 @@ Two extension points on `HttpClients.custom()`:
 
 The `InetAddress[]` `SafeDnsResolver` returns is the exact same array HttpClient passes to `Socket.connect()` — so there's no second DNS lookup between validation and connection. That's the TOCTOU window closed.
 
+## Get just this demo
+
+Each demo is a standalone Gradle project, so you can grab this one folder without
+cloning the whole `devslab-examples` repo.
+
+**With git (sparse checkout):**
+
+```bash
+git clone --filter=blob:none --sparse https://github.com/devslab-kr/devslab-examples.git
+cd devslab-examples
+git sparse-checkout set ssrf-guard-httpclient5-demo
+cd ssrf-guard-httpclient5-demo
+```
+
+**Without git (folder only):**
+
+```bash
+curl -sL https://github.com/devslab-kr/devslab-examples/archive/refs/heads/main.tar.gz \
+  | tar -xz --strip-components=2 devslab-examples-main/ssrf-guard-httpclient5-demo
+cd ssrf-guard-httpclient5-demo
+```
+
 ## Run
 
 ```bash
