@@ -26,7 +26,7 @@ dependencies {
     implementation("org.springframework.cloud:spring-cloud-starter-openfeign")
 
     // The library this demo showcases. Pulls in ssrf-guard-core transitively.
-    implementation("kr.devslab:ssrf-guard-feign:3.1.0")
+    implementation("kr.devslab:ssrf-guard-feign:3.1.1")
 
     testImplementation("org.springframework.boot:spring-boot-starter-test")
     testRuntimeOnly("org.junit.platform:junit-platform-launcher")

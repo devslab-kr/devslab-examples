@@ -4,7 +4,7 @@ plugins {
     id("io.spring.dependency-management") version "1.1.7"
     // GraalVM Native Image — provides `nativeCompile` + `nativeRun` tasks,
     // and the `processAot` task that exercises every RuntimeHintsRegistrar
-    // contributed by libraries on the classpath. ssrf-guard 3.1.0 ships
+    // contributed by libraries on the classpath. ssrf-guard 3.1.1 ships
     // hints for UrlPolicy / HostPolicy / SsrfBlockPayload / BlockReason
     // + the LLM JSON-walking path + Micrometer reflective bean; this demo
     // is the end-to-end proof those hints actually let a native image
@@ -32,7 +32,7 @@ dependencies {
     // hints transitively. Everything ssrf-guard contributes to the native
     // image (reflection / proxies / resources) flows through this single
     // dep.
-    implementation("kr.devslab:ssrf-guard:3.1.0")
+    implementation("kr.devslab:ssrf-guard:3.1.1")
 
     testImplementation("org.springframework.boot:spring-boot-starter-test")
     testRuntimeOnly("org.junit.platform:junit-platform-launcher")

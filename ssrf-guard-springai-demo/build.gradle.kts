@@ -25,8 +25,8 @@ dependencies {
     //   the RestClient against the wrapped tool's "remote" target.
     // - ssrf-guard-springai: wraps every ToolCallback bean automatically via
     //   a BeanPostProcessor — that's the whole "secure-by-default" pitch.
-    implementation("kr.devslab:ssrf-guard:3.1.0")
-    implementation("kr.devslab:ssrf-guard-springai:3.1.0")
+    implementation("kr.devslab:ssrf-guard:3.1.1")
+    implementation("kr.devslab:ssrf-guard-springai:3.1.1")
 
     // Spring AI 1.0 GA. We don't actually call an LLM in this demo — the
     // FakeLlmService stands in for one — but we pull the API in so the

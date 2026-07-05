@@ -118,7 +118,7 @@ curl -X POST http://localhost:8080/agent/chat \
 
 | File | Why |
 | --- | --- |
-| `build.gradle.kts` | The dependencies — `kr.devslab:ssrf-guard-langchain4j:3.1.0` + `dev.langchain4j:langchain4j:1.15.0`. That's it |
+| `build.gradle.kts` | The dependencies — `kr.devslab:ssrf-guard-langchain4j:3.1.1` + `dev.langchain4j:langchain4j:1.15.0`. That's it |
 | `application.yml` | `ssrf.guard.langchain4j.wrap-tool-executors=true` — the master switch (default true, shown for clarity) |
 | `agent/FetchUrlTool.java` | The raw executor — note there's **zero** security code here. The wrap happens at bean post-processing time |
 | `agent/FakeLlmService.java` | The fake-LLM driver. In production this is an `AiServices`-built assistant. Swap, recompile, done |

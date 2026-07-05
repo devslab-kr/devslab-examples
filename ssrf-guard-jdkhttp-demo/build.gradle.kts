@@ -23,7 +23,7 @@ dependencies {
     // dependency itself; the Spring Boot framing is just the demo's UX.
     implementation("org.springframework.boot:spring-boot-starter-web")
 
-    implementation("kr.devslab:ssrf-guard-jdkhttp:3.1.0")
+    implementation("kr.devslab:ssrf-guard-jdkhttp:3.1.1")
     // ssrf-guard-core's @ConfigurationProperties pulls in spring-boot
     // (transitively from -jdkhttp's API), so we get the SsrfGuardProperties
     // binding for free.

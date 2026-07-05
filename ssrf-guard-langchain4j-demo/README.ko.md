@@ -118,7 +118,7 @@ curl -X POST http://localhost:8080/agent/chat \
 
 | 파일 | 왜 |
 | --- | --- |
-| `build.gradle.kts` | 의존성 — `kr.devslab:ssrf-guard-langchain4j:3.1.0` + `dev.langchain4j:langchain4j:1.15.0`. 끝 |
+| `build.gradle.kts` | 의존성 — `kr.devslab:ssrf-guard-langchain4j:3.1.1` + `dev.langchain4j:langchain4j:1.15.0`. 끝 |
 | `application.yml` | `ssrf.guard.langchain4j.wrap-tool-executors=true` — 마스터 스위치 (기본 true, 명시적 표기) |
 | `agent/FetchUrlTool.java` | 원시 executor — **보안 코드 0줄**. wrap은 빈 후처리 시점에 일어남 |
 | `agent/FakeLlmService.java` | 가짜 LLM 드라이버. 프로덕션에선 `AiServices` 어시스턴트. 교체, 재컴파일, 끝 |
