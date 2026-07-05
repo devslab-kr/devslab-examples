@@ -2,11 +2,11 @@
 
 **English** · [한국어](README.ko.md)
 
-End-to-end proof that [`ssrf-guard 3.1.0`](https://github.com/devslab-kr/ssrf-guard)'s **GraalVM native-image hints** work — drop the library into a Spring Boot app, run `./gradlew nativeCompile`, and the resulting native binary blocks SSRF attempts at the same gates the JVM build does.
+End-to-end proof that [`ssrf-guard 3.1.1`](https://github.com/devslab-kr/ssrf-guard)'s **GraalVM native-image hints** work — drop the library into a Spring Boot app, run `./gradlew nativeCompile`, and the resulting native binary blocks SSRF attempts at the same gates the JVM build does.
 
 ## What this demo proves
 
-ssrf-guard 3.1.0 ships `RuntimeHintsRegistrar` entries through `META-INF/spring/aot.factories` in each module. The hints cover:
+ssrf-guard 3.1.1 ships `RuntimeHintsRegistrar` entries through `META-INF/spring/aot.factories` in each module. The hints cover:
 
 | Type | Why it needs a hint |
 | --- | --- |
@@ -127,7 +127,7 @@ You should see entries for `UrlPolicy`, `HostPolicy`, `SsrfBlockPayload`, `Block
 
 | File | Why |
 | --- | --- |
-| `build.gradle.kts` | The two-line setup: `kr.devslab:ssrf-guard:3.1.0` + `org.graalvm.buildtools.native` plugin |
+| `build.gradle.kts` | The two-line setup: `kr.devslab:ssrf-guard:3.1.1` + `org.graalvm.buildtools.native` plugin |
 | `SsrfGuardNativeImageDemoApplication.java` | Just `@SpringBootApplication` + a `RestClient` bean — autoconfig handles the rest |
 | `NativeImageDemoController.java` | `/fetch` + `/attacks` — surfaces `runtime` (jvm vs graalvm-native) for visual confirmation |
 | `application.yml` | `ssrf.guard.*` keys — bound via `@ConfigurationProperties`, which is the path that needs the AOT hints |
@@ -145,4 +145,4 @@ GraalVM native images are the answer to JVM cold-start cost in:
 - Kubernetes pods that scale to zero
 - CLI tools that need to start in <100 ms
 
-Without library-side hints, every dependency the consumer pulls in is a potential native-image landmine. ssrf-guard 3.1.0 ships the hints so consumers can `nativeCompile` without writing `reflect-config.json` for our types.
+Without library-side hints, every dependency the consumer pulls in is a potential native-image landmine. ssrf-guard 3.1.1 ships the hints so consumers can `nativeCompile` without writing `reflect-config.json` for our types.

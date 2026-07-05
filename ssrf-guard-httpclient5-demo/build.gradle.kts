@@ -28,7 +28,7 @@ dependencies {
     // constructed by hand — see the README's "Without Spring" section.
     implementation("org.springframework.boot:spring-boot-starter-web")
 
-    implementation("kr.devslab:ssrf-guard-httpclient5:3.1.0")
+    implementation("kr.devslab:ssrf-guard-httpclient5:3.1.1")
     // The Apache HttpClient 5 runtime. Versions 5.3+ ship the
     // DnsResolver / RedirectStrategy interfaces the module plugs into.
     implementation("org.apache.httpcomponents.client5:httpclient5:5.4.1")

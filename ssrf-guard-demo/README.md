@@ -6,9 +6,9 @@ Runnable example for [`ssrf-guard`](https://github.com/devslab-kr/ssrf-guard) �
 
 One Spring Boot app shows **all three Spring HTTP clients** wired through the same `UrlPolicy`:
 
-- `RestClient` (Spring 6.1+) via the meta `kr.devslab:ssrf-guard:3.1.0` artifact
-- `RestTemplate` via `kr.devslab:ssrf-guard-resttemplate:3.1.0`
-- `WebClient` (WebFlux) via `kr.devslab:ssrf-guard-webclient:3.1.0`
+- `RestClient` (Spring 6.1+) via the meta `kr.devslab:ssrf-guard:3.1.1` artifact
+- `RestTemplate` via `kr.devslab:ssrf-guard-resttemplate:3.1.1`
+- `WebClient` (WebFlux) via `kr.devslab:ssrf-guard-webclient:3.1.1`
 
 Plus a `/attacks` endpoint that lists every SSRF bypass pattern the guard catches, with copy-paste curls for each.
 
@@ -147,7 +147,7 @@ You'll see counters per `reason` tag (`blocked_host`, `blocked_ip_literal`, `blo
 
 | File | Why |
 | --- | --- |
-| `build.gradle.kts` | The only dependencies beyond the standard starters are `kr.devslab:ssrf-guard:3.1.0`, `kr.devslab:ssrf-guard-resttemplate:3.1.0`, `kr.devslab:ssrf-guard-webclient:3.1.0` — no manual configuration class needed |
+| `build.gradle.kts` | The only dependencies beyond the standard starters are `kr.devslab:ssrf-guard:3.1.1`, `kr.devslab:ssrf-guard-resttemplate:3.1.1`, `kr.devslab:ssrf-guard-webclient:3.1.1` — no manual configuration class needed |
 | `application.yml` | Every `ssrf.guard.*` knob in one place with comments |
 | `web/FetchController.java` | The whole RestClient story — three lines of setup, the guard runs invisibly |
 | `web/FetchResttemplateController.java` | Same shape for RestTemplate — no migration needed for legacy code |

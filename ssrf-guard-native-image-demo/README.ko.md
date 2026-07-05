@@ -2,11 +2,11 @@
 
 [English](README.md) · **한국어**
 
-[`ssrf-guard 3.1.0`](https://github.com/devslab-kr/ssrf-guard)의 **GraalVM 네이티브 이미지 힌트**가 동작함을 end-to-end로 증명 — Spring Boot 앱에 라이브러리 drop, `./gradlew nativeCompile`, 나온 네이티브 바이너리가 JVM 빌드와 동일한 게이트에서 SSRF 시도를 차단.
+[`ssrf-guard 3.1.1`](https://github.com/devslab-kr/ssrf-guard)의 **GraalVM 네이티브 이미지 힌트**가 동작함을 end-to-end로 증명 — Spring Boot 앱에 라이브러리 drop, `./gradlew nativeCompile`, 나온 네이티브 바이너리가 JVM 빌드와 동일한 게이트에서 SSRF 시도를 차단.
 
 ## 이 데모가 증명하는 것
 
-ssrf-guard 3.1.0은 각 모듈에서 `META-INF/spring/aot.factories`로 `RuntimeHintsRegistrar` 엔트리를 발행합니다. 커버 범위:
+ssrf-guard 3.1.1은 각 모듈에서 `META-INF/spring/aot.factories`로 `RuntimeHintsRegistrar` 엔트리를 발행합니다. 커버 범위:
 
 | 타입 | 힌트가 필요한 이유 |
 | --- | --- |
@@ -127,7 +127,7 @@ find build/generated -name 'reflect-config.json' -exec head -30 {} \;
 
 | 파일 | 왜 |
 | --- | --- |
-| `build.gradle.kts` | 2줄 셋업: `kr.devslab:ssrf-guard:3.1.0` + `org.graalvm.buildtools.native` plugin |
+| `build.gradle.kts` | 2줄 셋업: `kr.devslab:ssrf-guard:3.1.1` + `org.graalvm.buildtools.native` plugin |
 | `SsrfGuardNativeImageDemoApplication.java` | `@SpringBootApplication` + `RestClient` bean만 — 나머지는 자동 설정 처리 |
 | `NativeImageDemoController.java` | `/fetch` + `/attacks` — `runtime` 필드 (jvm vs graalvm-native)로 시각적 확인 |
 | `application.yml` | `ssrf.guard.*` 키 — `@ConfigurationProperties` 바인딩 경로가 AOT 힌트가 필요한 그 경로 |
@@ -145,4 +145,4 @@ GraalVM 네이티브 이미지는 JVM cold-start 비용 문제의 답:
 - Kubernetes pod scale-to-zero
 - 100 ms 미만 시작 필요한 CLI 도구
 
-라이브러리 측 힌트 없으면 사용자가 끌어오는 모든 의존성이 네이티브 이미지 지뢰. ssrf-guard 3.1.0은 힌트를 ship해서 사용자가 우리 타입에 대한 `reflect-config.json` 안 쓰고도 `nativeCompile` 가능.
+라이브러리 측 힌트 없으면 사용자가 끌어오는 모든 의존성이 네이티브 이미지 지뢰. ssrf-guard 3.1.1은 힌트를 ship해서 사용자가 우리 타입에 대한 `reflect-config.json` 안 쓰고도 `nativeCompile` 가능.

@@ -82,7 +82,7 @@ Blocked responses look like:
 
 | File | Why |
 | --- | --- |
-| `build.gradle.kts` | Two deps: `kr.devslab:ssrf-guard-httpclient5:3.1.0` + `org.apache.httpcomponents.client5:httpclient5:5.4.1` |
+| `build.gradle.kts` | Two deps: `kr.devslab:ssrf-guard-httpclient5:3.1.1` + `org.apache.httpcomponents.client5:httpclient5:5.4.1` |
 | `SsrfGuardHttpClient5DemoApplication.java` | Just `@SpringBootApplication`. The module's autoconfig wires the guarded `CloseableHttpClient` bean — **zero lines of wiring code**. |
 | `HttpClient5DemoController.java` | Standard `client.execute(get, handler)` call — no reference to the guard at all |
 | `application.yml` | `ssrf.guard.*` keys: whitelist, `block-private-networks`, `follow-redirects`, `allowed-schemes` |

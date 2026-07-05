@@ -26,9 +26,9 @@ dependencies {
     // The meta `ssrf-guard` artifact transitively pulls in `-core`, `-httpclient5`,
     // and `-restclient`. The `-resttemplate` and `-webclient` modules are
     // additive and reuse the same UrlPolicy / SsrfGuardMetrics beans.
-    implementation("kr.devslab:ssrf-guard:3.1.0")
-    implementation("kr.devslab:ssrf-guard-resttemplate:3.1.0")
-    implementation("kr.devslab:ssrf-guard-webclient:3.1.0")
+    implementation("kr.devslab:ssrf-guard:3.1.1")
+    implementation("kr.devslab:ssrf-guard-resttemplate:3.1.1")
+    implementation("kr.devslab:ssrf-guard-webclient:3.1.1")
 
     // Micrometer Prometheus registry — turns SSRF Guard's counters into
     // /actuator/prometheus output so you can curl the metrics in the demo.

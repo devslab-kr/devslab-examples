@@ -26,8 +26,8 @@ dependencies {
     // - ssrf-guard-langchain4j: registers a BeanPostProcessor that wraps every
     //   ToolExecutor bean automatically — the "secure-by-default" pitch
     //   mirrored from ssrf-guard-springai, just for the LangChain4j community.
-    implementation("kr.devslab:ssrf-guard:3.1.0")
-    implementation("kr.devslab:ssrf-guard-langchain4j:3.1.0")
+    implementation("kr.devslab:ssrf-guard:3.1.1")
+    implementation("kr.devslab:ssrf-guard-langchain4j:3.1.1")
 
     // LangChain4j 1.x. We don't actually call an LLM in this demo — the
     // FakeLlmService stands in for one — but we pull the API in so the

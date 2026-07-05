@@ -113,7 +113,7 @@ curl -X POST http://localhost:8080/agent/chat \
 
 | File | Why |
 | --- | --- |
-| `build.gradle.kts` | The dependencies — `kr.devslab:ssrf-guard-springai:3.1.0` + `org.springframework.ai:spring-ai-model:1.0.7`. That's it |
+| `build.gradle.kts` | The dependencies — `kr.devslab:ssrf-guard-springai:3.1.1` + `org.springframework.ai:spring-ai-model:1.0.7`. That's it |
 | `application.yml` | `ssrf.guard.springai.wrap-tool-callbacks=true` — the master switch (default true, shown for clarity) |
 | `agent/FetchUrlTool.java` | The raw tool — note there's **zero** security code here. The wrap happens at bean post-processing time |
 | `agent/FakeLlmService.java` | The fake-LLM driver. In production this is a `ChatClient`. Swap, recompile, done |

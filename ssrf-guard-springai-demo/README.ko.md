@@ -113,7 +113,7 @@ curl -X POST http://localhost:8080/agent/chat \
 
 | 파일 | 왜 |
 | --- | --- |
-| `build.gradle.kts` | 의존성 — `kr.devslab:ssrf-guard-springai:3.1.0` + `org.springframework.ai:spring-ai-model:1.0.7`. 끝 |
+| `build.gradle.kts` | 의존성 — `kr.devslab:ssrf-guard-springai:3.1.1` + `org.springframework.ai:spring-ai-model:1.0.7`. 끝 |
 | `application.yml` | `ssrf.guard.springai.wrap-tool-callbacks=true` — 마스터 스위치 (기본 true, 명시적 표기) |
 | `agent/FetchUrlTool.java` | 원시 툴 — **보안 코드 0줄**. wrap은 빈 후처리 시점에 일어남 |
 | `agent/FakeLlmService.java` | 가짜 LLM 드라이버. 프로덕션에선 `ChatClient`. 교체, 재컴파일, 끝 |

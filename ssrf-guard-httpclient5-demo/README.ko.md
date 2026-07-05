@@ -82,7 +82,7 @@ curl 'http://localhost:8080/fetch?url=https://evil.com/' | jq
 
 | 파일 | 왜 |
 | --- | --- |
-| `build.gradle.kts` | 의존성 둘: `kr.devslab:ssrf-guard-httpclient5:3.1.0` + `org.apache.httpcomponents.client5:httpclient5:5.4.1` |
+| `build.gradle.kts` | 의존성 둘: `kr.devslab:ssrf-guard-httpclient5:3.1.1` + `org.apache.httpcomponents.client5:httpclient5:5.4.1` |
 | `SsrfGuardHttpClient5DemoApplication.java` | `@SpringBootApplication`만. 모듈의 자동 설정이 가드된 `CloseableHttpClient` 빈을 wire — **wiring 코드 0줄**. |
 | `HttpClient5DemoController.java` | 표준 `client.execute(get, handler)` 호출 — 가드 참조 0 |
 | `application.yml` | `ssrf.guard.*` 키: 화이트리스트, `block-private-networks`, `follow-redirects`, `allowed-schemes` |

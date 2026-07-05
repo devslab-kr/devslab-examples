@@ -48,7 +48,7 @@ curl 'http://localhost:8080/fetch?url=https://evil.com/' | jq
 
 | File | Why |
 | --- | --- |
-| `build.gradle.kts` | `kr.devslab:ssrf-guard-okhttp:3.1.0` + `com.squareup.okhttp3:okhttp:4.12.0` |
+| `build.gradle.kts` | `kr.devslab:ssrf-guard-okhttp:3.1.1` + `com.squareup.okhttp3:okhttp:4.12.0` |
 | `SsrfGuardOkHttpDemoApplication.java` | Three lines on the OkHttp builder — `.addInterceptor(...)`, `.dns(...)`, `.followRedirects(...)` |
 | `OkHttpDemoController.java` | Standard OkHttp `newCall().execute()` — the wrap is invisible at the call site |
 
