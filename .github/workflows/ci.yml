@@ -16,7 +16,7 @@ jobs:
       demos: ${{ steps.detect.outputs.demos }}
       any: ${{ steps.detect.outputs.any }}
     steps:
-      - uses: actions/checkout@v6
+      - uses: actions/checkout@v7
         with:
           # Always full history. We previously tried
           #   fetch-depth: ${{ github.event_name == 'pull_request' && 0 || 1 }}
@@ -84,7 +84,7 @@ jobs:
       matrix:
         demo: ${{ fromJson(needs.detect.outputs.demos) }}
     steps:
-      - uses: actions/checkout@v6
+      - uses: actions/checkout@v7
 
       - uses: actions/setup-java@v5
         with:
