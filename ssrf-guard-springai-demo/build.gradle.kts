@@ -31,7 +31,7 @@ dependencies {
     // Spring AI 1.0 GA. We don't actually call an LLM in this demo — the
     // FakeLlmService stands in for one — but we pull the API in so the
     // ToolCallback / ToolDefinition / ToolMetadata types compile.
-    implementation("org.springframework.ai:spring-ai-model:1.1.7")
+    implementation("org.springframework.ai:spring-ai-model:2.0.0")
 
     testImplementation("org.springframework.boot:spring-boot-starter-test")
     testRuntimeOnly("org.junit.platform:junit-platform-launcher")
