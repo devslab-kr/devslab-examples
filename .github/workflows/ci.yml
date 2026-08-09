@@ -15,6 +15,8 @@ jobs:
     outputs:
       demos: ${{ steps.detect.outputs.demos }}
       any: ${{ steps.detect.outputs.any }}
+      node_demos: ${{ steps.detect.outputs.node_demos }}
+      any_node: ${{ steps.detect.outputs.any_node }}
     steps:
       - uses: actions/checkout@v7
         with:
@@ -57,9 +59,20 @@ jobs:
                 fi
               done
             done
+            node_to_build=()
+            for d in "${all_node_demos[@]:-}"; do
+              [ -n "$d" ] || continue
+              for f in "${changed_files[@]}"; do
+                if [[ "$f" == "$d/"* ]]; then
+                  node_to_build+=("$d")
+                  break
+                fi
+              done
+            done
           else
             # Push to main: build everything (catches drift from external bumps).
             demos_to_build=("${all_demos[@]}")
+            node_to_build=("${all_node_demos[@]:-}")
           fi
 
           if [ ${#demos_to_build[@]} -eq 0 ]; then
@@ -72,6 +85,23 @@ jobs:
             demos_json=$(printf '%s\n' "${demos_to_build[@]}" | jq -R . | jq -s -c .)
             echo "demos=$demos_json" >> "$GITHUB_OUTPUT"
             echo "any=true" >> "$GITHUB_OUTPUT"
+          fi
+
+          # Same treatment for the Node demos.
+          node_filtered=()
+          for d in "${node_to_build[@]:-}"; do
+            [ -n "$d" ] && node_filtered+=("$d")
+          done
+          if [ ${#node_filtered[@]} -eq 0 ]; then
+            echo "No Node demos to build."
+            echo "node_demos=[]" >> "$GITHUB_OUTPUT"
+            echo "any_node=false" >> "$GITHUB_OUTPUT"
+          else
+            echo "Node demos to build:"
+            for d in "${node_filtered[@]}"; do echo "  - $d"; done
+            node_json=$(for d in "${node_filtered[@]}"; do echo "$d"; done | jq -R . | jq -s -c .)
+            echo "node_demos=$node_json" >> "$GITHUB_OUTPUT"
+            echo "any_node=true" >> "$GITHUB_OUTPUT"
           fi
 
   build:
@@ -96,3 +126,33 @@ jobs:
       - name: Build
         working-directory: ${{ matrix.demo }}
         run: ./gradlew build --no-daemon
+
+  build-node:
+    name: Build ${{ matrix.demo }}
+    needs: detect
+    if: needs.detect.outputs.any_node == 'true'
+    runs-on: ubuntu-latest
+    strategy:
+      fail-fast: false
+      matrix:
+        demo: ${{ fromJson(needs.detect.outputs.node_demos) }}
+    steps:
+      - uses: actions/checkout@v7
+
+      - uses: pnpm/action-setup@v4
+        with:
+          version: 9
+
+      - uses: actions/setup-node@v5
+        with:
+          node-version: 22
+          cache: pnpm
+          cache-dependency-path: ${{ matrix.demo }}/pnpm-lock.yaml
+
+      - name: Install
+        working-directory: ${{ matrix.demo }}
+        run: pnpm install --frozen-lockfile
+
+      - name: Verify
+        working-directory: ${{ matrix.demo }}
+        run: pnpm verify
