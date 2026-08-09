@@ -35,8 +35,12 @@ jobs:
         run: |
           set -euo pipefail
 
-          # A "demo" is any top-level directory containing a build.gradle.kts.
+          # A "demo" is any top-level directory containing a build.gradle.kts
+          # (JVM) or a package.json (Node). The two build differently, so they
+          # are detected into separate matrices rather than one list the build
+          # job would have to sniff.
           mapfile -t all_demos < <(find . -mindepth 2 -maxdepth 2 -name 'build.gradle.kts' -not -path './.*' -printf '%h\n' | sed 's|^\./||' | sort -u)
+          mapfile -t all_node_demos < <(find . -mindepth 2 -maxdepth 2 -name 'package.json' -not -path './.*' -not -path './*/node_modules/*' -printf '%h\n' | sed 's|^\./||' | sort -u)
 
           if [ "${{ github.event_name }}" = "pull_request" ]; then
             # Build only demos whose files changed in this PR.
