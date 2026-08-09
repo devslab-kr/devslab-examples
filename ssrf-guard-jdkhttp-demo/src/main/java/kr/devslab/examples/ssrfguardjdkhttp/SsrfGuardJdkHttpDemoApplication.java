@@ -50,9 +50,16 @@ public class SsrfGuardJdkHttpDemoApplication {
                 NoOpSsrfGuardMetrics.INSTANCE
         );
 
-        // Wrap any HttpClient — Java 11+ default builder is fine, but you
-        // could also pass a HttpClient configured with proxy / TLS / HTTP2
-        // settings. The guard wraps the SEND path, not the construction.
+        // Wrap an HttpClient configured however you like — proxy, TLS, HTTP/2
+        // — with ONE constraint since ssrf-guard 3.3.0: redirect following
+        // must be left at Redirect.NEVER, which is the JDK's default and
+        // what newBuilder().build() gives you.
+        //
+        // The wrapper follows and re-validates redirects itself, so every hop
+        // gets the same policy as the first request. A delegate that followed
+        // them internally would chase the Location header where the guard
+        // cannot see it — so the constructor refuses one rather than acting
+        // as a guard that quietly does nothing.
         return new SsrfGuardedHttpClient(
                 HttpClient.newBuilder().build(),
                 urlPolicy,
