@@ -44,7 +44,6 @@ For apps still on Spring Boot 3.3–3.5. The starter's [`3.x` branch](https://gi
 | [`ssrf-guard-okhttp-demo`](ssrf-guard-okhttp-demo/) | OkHttp `Interceptor` + `Dns` integration — also no Spring needed. Three-line wiring on `OkHttpClient.Builder`. | [![Maven Central](https://img.shields.io/maven-central/v/kr.devslab/ssrf-guard-okhttp)](https://central.sonatype.com/artifact/kr.devslab/ssrf-guard-okhttp) |
 | [`ssrf-guard-httpclient5-demo`](ssrf-guard-httpclient5-demo/) | Apache HttpClient 5 — **DNS-time** SSRF gate (`SafeDnsResolver`) + `SafeRedirectStrategy`. Zero wiring code in Spring (module ships its own autoconfig); five-line wiring outside Spring. The TOCTOU-closing approach: validate=connect on the same `InetAddress[]`. | [![Maven Central](https://img.shields.io/maven-central/v/kr.devslab/ssrf-guard-httpclient5)](https://central.sonatype.com/artifact/kr.devslab/ssrf-guard-httpclient5) |
 | [`ssrf-guard-native-image-demo`](ssrf-guard-native-image-demo/) | ⚡ **GraalVM native-image** proof. Pulls `ssrf-guard:3.1.0`, applies the `org.graalvm.buildtools.native` plugin, demonstrates `nativeCompile` produces a working native binary that blocks the same 12-pattern attack matrix as the JVM build. End-to-end verification that ssrf-guard 3.1.0's `RuntimeHintsRegistrar` entries are complete. | [![Maven Central](https://img.shields.io/maven-central/v/kr.devslab/ssrf-guard)](https://central.sonatype.com/artifact/kr.devslab/ssrf-guard) |
-| [`ssrf-guard-js-workers-demo`](ssrf-guard-js-workers-demo/) | 🌍 **The JS/TS sibling, on Cloudflare Workers.** `@devslab/ssrf-guard-js` where there is no usable `dns.lookup` — Hono middleware, `sameSitePolicy` for user-submitted sites, `singleHostPolicy` for a registered API, and a 17-payload matrix answered with the non-throwing `checkUrl`. Shows why `safeFetch` refuses to run at the edge instead of degrading. Node + pnpm, not Gradle. | [![npm](https://img.shields.io/npm/v/%40devslab%2Fssrf-guard-js)](https://www.npmjs.com/package/@devslab/ssrf-guard-js) |
 
 ### api-log
 
@@ -66,6 +65,11 @@ Spring Boot 4 platform starter — authentication, RBAC + groups + ABAC, multi-t
 
 ## Conventions
 
+- Every demo here is **Spring Boot on the JVM**. Examples for the JS/TS
+  libraries live in their own repositories, next to the code they
+  demonstrate — see
+  [`ssrf-guard-js/examples`](https://github.com/devslab-kr/ssrf-guard-js/tree/main/examples)
+  and [`editor-ruler/examples`](https://github.com/devslab-kr/editor-ruler/tree/main/examples).
 - Each demo is a **standalone Gradle project** — its own `settings.gradle.kts`, `build.gradle.kts`, and `gradlew`. Demos do not share a root build, so their dependency versions and JDK targets can drift independently.
 - Each demo depends on the **latest stable release** of the starter it showcases (pinned by version in `build.gradle.kts`). Dependabot bumps it on new releases.
 - This repo is **not versioned or tagged** — demos are not published artifacts. `main` is the source of truth.
