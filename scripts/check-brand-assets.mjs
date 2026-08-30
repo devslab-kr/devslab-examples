@@ -44,6 +44,7 @@ for (const [file, endorsement] of [
 }
 
 const rootOnly = new Set([
+  '.github/workflows/ci.yml',
   '.github/assets/readme-header.png',
   '.github/assets/social-preview.png',
   '.github/assets/collection-mark.svg',
@@ -55,5 +56,16 @@ const rootOnly = new Set([
 for (const file of changedFiles()) {
   assert(rootOnly.has(file), `O12 is collection-level only; unexpected changed path: ${file}`);
 }
+
+const ci = read('.github/workflows/ci.yml');
+const brandStart = ci.indexOf('  brand:\n');
+assert(brandStart >= 0, 'CI must include a dedicated O12 brand job');
+const nextJobPattern = /\n  [A-Za-z][A-Za-z0-9_-]*:\n/g;
+nextJobPattern.lastIndex = brandStart + '  brand:\n'.length;
+const nextJob = nextJobPattern.exec(ci);
+const brandJob = ci.slice(brandStart, nextJob?.index ?? ci.length);
+assert(brandJob.includes("node-version: '22'"), 'dedicated O12 brand job must use Node 22');
+assert(brandJob.includes('run: node scripts/check-brand-assets.mjs'), 'dedicated O12 brand job must run the collection checker');
+assert(!brandJob.includes('needs:'), 'dedicated O12 brand job must not depend on the demo matrix');
 
 console.log(`O12 collection brand contract passed (${expectedHashes.size} exact assets, no per-demo changes).`);
