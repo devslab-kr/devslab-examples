@@ -5,13 +5,13 @@ import { resolve } from 'node:path';
 
 const root = resolve(import.meta.dirname, '..');
 const expectedHashes = new Map([
-  ['.github/assets/readme-header.png', '47a942ffe3633979b805495dc3f27eef10d243ff278c72f1061152eac8a7f078'],
-  ['.github/assets/social-preview.png', 'e9bc6856c557ee4ede2db139b6b40cd754d1e90ebf63b25dc6f02f546cfbd151'],
-  ['.github/assets/collection-mark.svg', 'f2370535bb544213ecc0648d82298cd83767388a1c0ac991b907e4a778a03287'],
-  ['.github/assets/collection-lockup.svg', 'eaac691c43dd97c4033b966e27272a02d1dc06a5c0b01b95ec8483f6c2ff8bad'],
+  ['.github/assets/readme-header.png', '36e94ca0b5553c07e67ded933fbcb17e2a04f64223026c065b69bc2c72a60c10'],
+  ['.github/assets/social-preview.png', 'c4cc40d3261368a76a5b80a794007037805baa887792fc99bf1418fcb3f401db'],
+  ['.github/assets/collection-mark.svg', 'a0374b6e5b987dfdf34779459ff412d8ddb9d4b3ada1f672aabce4db0a71d166'],
+  ['.github/assets/collection-lockup.svg', '71497e089061d07251c5f086ec1fc2c6fdfa75cdec38d0822f9e349d6b372121'],
 ]);
 
-const read = (file) => readFileSync(resolve(root, file), 'utf8');
+const read = (file) => readFileSync(resolve(root, file), 'utf8').replace(/\r\n/g, '\n');
 const assert = (condition, message) => {
   if (!condition) throw new Error(message);
 };
@@ -24,13 +24,14 @@ for (const [file, expected] of expectedHashes) {
   const absolute = resolve(root, file);
   assert(existsSync(absolute), `missing required O12 collection asset: ${file}`);
   const actual = createHash('sha256').update(readFileSync(absolute)).digest('hex');
-  assert(actual === expected, `${file} has ${actual}; expected oss-brand v0.1.1 hash ${expected}`);
+  assert(actual === expected, `${file} has ${actual}; expected oss-brand v0.2.0 hash ${expected}`);
 }
 
 const mark = read('.github/assets/collection-mark.svg');
 const lockup = read('.github/assets/collection-lockup.svg');
 assert(mark.includes('data-oss-project="O12"'), 'collection mark must identify the O12 asset');
-assert(mark.includes('M10 6H6V26H10') && mark.includes('M14 11L21 16L14 21Z'), 'collection mark must retain O12 bracket-and-play geometry');
+assert(mark.includes('data-layer="q-frame"') && mark.includes('<rect x="5" y="5" width="16" height="16" rx="2"') && mark.includes('<rect x="11" y="11" width="16" height="16" rx="2"'), 'collection mark must use the shared Q frame');
+assert(mark.includes('M15 13V23') && mark.includes('M23 13V23') && mark.includes('M18 15L22 18L18 21Z'), 'collection mark must retain the O12 examples route');
 assert(lockup.includes('data-oss-lockup="O12"') && lockup.includes('Open source by DevsLab'), 'collection lockup must provide the O12 endorsement');
 
 for (const [file, endorsement] of [
