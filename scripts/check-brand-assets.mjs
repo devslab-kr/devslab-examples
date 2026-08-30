@@ -65,6 +65,7 @@ nextJobPattern.lastIndex = brandStart + '  brand:\n'.length;
 const nextJob = nextJobPattern.exec(ci);
 const brandJob = ci.slice(brandStart, nextJob?.index ?? ci.length);
 assert(brandJob.includes("node-version: '22'"), 'dedicated O12 brand job must use Node 22');
+assert(brandJob.includes('fetch-depth: 0'), 'dedicated O12 brand job must fetch origin/main for collection-only diff validation');
 assert(brandJob.includes('run: node scripts/check-brand-assets.mjs'), 'dedicated O12 brand job must run the collection checker');
 assert(!brandJob.includes('needs:'), 'dedicated O12 brand job must not depend on the demo matrix');
 
