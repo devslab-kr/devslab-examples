@@ -9,6 +9,21 @@ permissions:
   contents: read
 
 jobs:
+  brand:
+    name: Verify O12 brand assets
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v7
+        with:
+          fetch-depth: 0
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+
+      - name: Verify O12 collection brand contract
+        run: node scripts/check-brand-assets.mjs
+
   detect:
     name: Detect demos to build
     runs-on: ubuntu-latest
