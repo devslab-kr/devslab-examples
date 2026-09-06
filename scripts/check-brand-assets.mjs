@@ -35,8 +35,8 @@ assert(mark.includes('M15 13V23') && mark.includes('M23 13V23') && mark.includes
 assert(lockup.includes('data-oss-lockup="O12"') && lockup.includes('Open source by DevsLab'), 'collection lockup must provide the O12 endorsement');
 
 for (const [file, endorsement] of [
-  ['README.md', 'Open source by [DevsLab](https://devslab.kr/)'],
-  ['README.ko.md', '[DevsLab](https://devslab.kr/) 오픈소스'],
+  ['README.md', 'Open source by [데브스랩(DevsLab)](https://devslab.kr/)'],
+  ['README.ko.md', 'Open source by [데브스랩(DevsLab)](https://devslab.kr/)'],
 ]) {
   const content = read(file);
   assert(content.includes('.github/assets/readme-header.png'), `${file} must use the local O12 README header`);
