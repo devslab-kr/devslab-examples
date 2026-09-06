@@ -35,8 +35,8 @@ assert(mark.includes('M15 13V23') && mark.includes('M23 13V23') && mark.includes
 assert(lockup.includes('data-oss-lockup="O12"') && lockup.includes('Open source by DevsLab'), 'collection lockup must provide the O12 endorsement');
 
 for (const [file, endorsement] of [
-  ['README.md', 'Open source by [DevsLab](https://devslab.kr/)'],
-  ['README.ko.md', '[DevsLab](https://devslab.kr/) 오픈소스'],
+  ['README.md', 'Open source by [데브스랩(DevsLab)](https://devslab.kr/)'],
+  ['README.ko.md', 'Open source by [데브스랩(DevsLab)](https://devslab.kr/)'],
 ]) {
   const content = read(file);
   assert(content.includes('.github/assets/readme-header.png'), `${file} must use the local O12 README header`);
@@ -53,6 +53,13 @@ const rootOnly = new Set([
   'README.md',
   'README.ko.md',
   'scripts/check-brand-assets.mjs',
+  '.github/workflows/publisher.yml',
+  'tools/publisher/.gitignore',
+  'tools/publisher/README.md',
+  'tools/publisher/config.json',
+  'tools/publisher/package.json',
+  'tools/publisher/package-lock.json',
+  'tools/publisher/sync.mjs',
 ]);
 for (const file of changedFiles()) {
   assert(rootOnly.has(file), `O12 is collection-level only; unexpected changed path: ${file}`);
