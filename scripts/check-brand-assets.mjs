@@ -53,6 +53,13 @@ const rootOnly = new Set([
   'README.md',
   'README.ko.md',
   'scripts/check-brand-assets.mjs',
+  '.github/workflows/publisher.yml',
+  'tools/publisher/.gitignore',
+  'tools/publisher/README.md',
+  'tools/publisher/config.json',
+  'tools/publisher/package.json',
+  'tools/publisher/package-lock.json',
+  'tools/publisher/sync.mjs',
 ]);
 for (const file of changedFiles()) {
   assert(rootOnly.has(file), `O12 is collection-level only; unexpected changed path: ${file}`);
