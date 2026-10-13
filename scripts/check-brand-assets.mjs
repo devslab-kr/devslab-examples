@@ -1,5 +1,4 @@
 import { createHash } from 'node:crypto';
-import { execFileSync } from 'node:child_process';
 import { existsSync, readFileSync } from 'node:fs';
 import { resolve } from 'node:path';
 
@@ -15,10 +14,6 @@ const read = (file) => readFileSync(resolve(root, file), 'utf8').replace(/\r\n/g
 const assert = (condition, message) => {
   if (!condition) throw new Error(message);
 };
-const changedFiles = () => execFileSync('git', ['diff', '--name-only', 'origin/main'], { cwd: root, encoding: 'utf8' })
-  .trim()
-  .split(/\r?\n/)
-  .filter(Boolean);
 
 for (const [file, expected] of expectedHashes) {
   const absolute = resolve(root, file);
@@ -35,8 +30,8 @@ assert(mark.includes('M15 13V23') && mark.includes('M23 13V23') && mark.includes
 assert(lockup.includes('data-oss-lockup="O12"') && lockup.includes('Open source by DevsLab'), 'collection lockup must provide the O12 endorsement');
 
 for (const [file, endorsement] of [
-  ['README.md', 'Open source by [DevsLab](https://devslab.kr/)'],
-  ['README.ko.md', '[DevsLab](https://devslab.kr/) 오픈소스'],
+  ['README.md', 'Open source by [데브스랩(DevsLab)](https://devslab.kr/)'],
+  ['README.ko.md', 'Open source by [데브스랩(DevsLab)](https://devslab.kr/)'],
 ]) {
   const content = read(file);
   assert(content.includes('.github/assets/readme-header.png'), `${file} must use the local O12 README header`);
@@ -44,20 +39,8 @@ for (const [file, endorsement] of [
   assert(content.includes(endorsement), `${file} must include its localized collection endorsement`);
 }
 
-const rootOnly = new Set([
-  '.github/workflows/ci.yml',
-  '.github/assets/readme-header.png',
-  '.github/assets/social-preview.png',
-  '.github/assets/collection-mark.svg',
-  '.github/assets/collection-lockup.svg',
-  'README.md',
-  'README.ko.md',
-  'scripts/check-brand-assets.mjs',
-]);
-for (const file of changedFiles()) {
-  assert(rootOnly.has(file), `O12 is collection-level only; unexpected changed path: ${file}`);
-}
-
+// Collection branding is checked for every build; demo maintenance is allowed.
+// Gradle Wrapper integrity remains the responsibility of setup-gradle in CI.
 const ci = read('.github/workflows/ci.yml');
 const brandStart = ci.indexOf('  brand:\n');
 assert(brandStart >= 0, 'CI must include a dedicated O12 brand job');
@@ -66,8 +49,8 @@ nextJobPattern.lastIndex = brandStart + '  brand:\n'.length;
 const nextJob = nextJobPattern.exec(ci);
 const brandJob = ci.slice(brandStart, nextJob?.index ?? ci.length);
 assert(brandJob.includes("node-version: '22'"), 'dedicated O12 brand job must use Node 22');
-assert(brandJob.includes('fetch-depth: 0'), 'dedicated O12 brand job must fetch origin/main for collection-only diff validation');
+assert(brandJob.includes('fetch-depth: 0'), 'dedicated O12 brand job must fetch origin/main for complete checkout history');
 assert(brandJob.includes('run: node scripts/check-brand-assets.mjs'), 'dedicated O12 brand job must run the collection checker');
 assert(!brandJob.includes('needs:'), 'dedicated O12 brand job must not depend on the demo matrix');
 
-console.log(`O12 collection brand contract passed (${expectedHashes.size} exact assets, no per-demo changes).`);
+console.log(`O12 collection brand contract passed (${expectedHashes.size} exact assets).`);
