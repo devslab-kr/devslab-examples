@@ -4,7 +4,11 @@
   <a href="https://devslab.kr/brand/open-source/"><img src=".github/assets/readme-header.png" alt="devslab-examples - DevsLab 오픈소스" width="100%" /></a>
 </p>
 
-**[DevsLab](https://devslab.kr/) 오픈소스** · [OSS 브랜드 가이드](https://devslab.kr/brand/open-source/) · 컬렉션 O12
+<!-- publisher:start -->
+Open source by [데브스랩(DevsLab)](https://devslab.kr/).
+<!-- publisher:end -->
+
+[OSS 브랜드 가이드](https://devslab.kr/brand/open-source/) · 컬렉션 O12
 
 [English](README.md) · **한국어**
 
