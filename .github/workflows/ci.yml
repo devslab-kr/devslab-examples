@@ -8,8 +8,14 @@ on:
 permissions:
   contents: read
 
+concurrency:
+  # Superseded PR runs are obsolete; main/release runs retain distinct groups.
+  group: ci-${{ github.workflow }}-${{ github.event_name == 'pull_request' && github.ref || github.run_id }}
+  cancel-in-progress: ${{ github.event_name == 'pull_request' }}
+
 jobs:
   brand:
+    timeout-minutes: 30
     name: Verify O12 brand assets
     runs-on: ubuntu-latest
     steps:
@@ -25,6 +31,7 @@ jobs:
         run: node scripts/check-brand-assets.mjs
 
   detect:
+    timeout-minutes: 30
     name: Detect demos to build
     runs-on: ubuntu-latest
     outputs:
@@ -92,6 +99,7 @@ jobs:
           fi
 
   build:
+    timeout-minutes: 60
     name: Build ${{ matrix.demo }}
     needs: detect
     if: needs.detect.outputs.any == 'true'
